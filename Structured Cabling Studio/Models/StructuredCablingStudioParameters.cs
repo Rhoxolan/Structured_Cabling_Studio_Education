@@ -1,4 +1,4 @@
-﻿namespace Structured_Cabling_Studio.Models
+﻿namespace StructuredCablingStudio.Models
 {
 	public class StructuredCablingStudioParameters
 	{
