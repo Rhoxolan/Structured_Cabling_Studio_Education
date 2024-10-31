@@ -7,8 +7,4 @@
     <RootNamespace>StructuredCablingStudio</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
-
 </Project>
