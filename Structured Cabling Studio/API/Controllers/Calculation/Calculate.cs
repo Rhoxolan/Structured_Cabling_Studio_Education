@@ -4,7 +4,7 @@ using StructuredCablingStudio.Models;
 namespace StructuredCablingStudio.API.Controllers.Calculation
 {
 	[Route("api/{controller}/{action}/{id?}")]
-	public class CalculateController : Controller
+	public class Calculate : Controller
 	{
 		/// <summary>
 		/// Returns the partial view with the clean Calculate form
@@ -93,6 +93,12 @@ namespace StructuredCablingStudio.API.Controllers.Calculation
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> Calculate(/*CalculateViewModel calculateVM*/)
+		{
+			throw new NotImplementedException();
+		}
+
+		[HttpPost]
+		public IActionResult SaveToTXT(string serializedCablingConfiguration)
 		{
 			throw new NotImplementedException();
 		}

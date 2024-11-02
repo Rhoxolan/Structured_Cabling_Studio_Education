@@ -50,42 +50,42 @@ document.addEventListener('focusout', e => {
 document.addEventListener('click', e => {
     if (e.target.id === "restoreDefaultsButton") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("Calculation/RestoreDefaultsCalculateForm");
+        editCalculateForm("api/Calculate/RestoreDefaultsCalculateForm");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isStrictComplianceWithTheStandartCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("Calculation/PutStrictComplianceWithTheStandart");
+        editCalculateForm("api/Calculate/PutStrictComplianceWithTheStandart");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isAnArbitraryNumberOfPortsCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("Calculation/PutAnArbitraryNumberOfPorts");
+        editCalculateForm("api/Calculate/PutAnArbitraryNumberOfPorts");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isTechnologicalReserveAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("Calculation/PutTechnologicalReserveAvailability");
+        editCalculateForm("api/Calculate/PutTechnologicalReserveAvailability");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isRecommendationsAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("Calculation/PutRecommendationsAvailability");
+        editCalculateForm("api/Calculate/PutRecommendationsAvailability");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isCableHankMeterageAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("Calculation/PutCableHankMeterageAvailability");
+        editCalculateForm("api/Calculate/PutCableHankMeterageAvailability");
     }
 });
 
@@ -105,7 +105,7 @@ document.addEventListener('submit', e => {
 
 async function loadCalculateForm() {
     try {
-        let resp = await fetch("Calculation/GetCalculateForm", {
+        let resp = await fetch("api/Calculate/GetCalculateForm", {
             method: "GET"
         });
         if (resp.ok === true) {
@@ -124,7 +124,7 @@ async function loadCalculateForm() {
 
 async function loadConfigurationDisplay() {
     try {
-        let resp = await fetch("Calculation/GetConfigurationDisplayCalculate", {
+        let resp = await fetch("api/Calculate/GetConfigurationDisplayCalculate", {
             method: "GET"
         });
         if (resp.ok === true) {
@@ -166,7 +166,7 @@ async function editCalculateForm(path) {
 async function calculate() {
     document.getElementById('calculateFormDiv').classList.add('formLoading');
     try {
-        let resp = await fetch("Calculation/Calculate", {
+        let resp = await fetch("api/Calculate/Calculate", {
             method: "POST",
             body: new FormData(document.forms.calculateForm)
         });

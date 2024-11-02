@@ -1,0 +1,455 @@
+﻿@using StructuredCablingStudio.Models
+@using static System.Globalization.CultureInfo
+@* @model CalculateViewModel *@
+@{
+	var diapasons = (ViewData["Diapasons"] as StructuredCablingStudioDiapasons)!;
+}
+
+@* <form id="calculateForm" asp-controller="@nameof(Calculation)" asp-action="@nameof(Calculation.Calculate)" method="post"> *@
+<form id="calculateForm" method="post">
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<label class="form-label" for="minPermanentLinkInput">
+					@Localizer["Minimum length of the permanent link:"]
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5 col-md-4 col-lg-3 col-xxl-2">
+				<input class="form-control border-primary border-opacity-75" type="number" id="minPermanentLinkInput" step="0.01"
+		min="@diapasons.MinPermanentLinkDiapason.Min.ToString(InvariantCulture)" max="@diapasons.MinPermanentLinkDiapason.Max.ToString(InvariantCulture)"
+					   asp-for="MinPermanentLink" required />
+			</div>
+			<div class="col d-flex align-items-end ps-0">
+				<label class="form-label mb-1" for="minPermanentLinkInput">
+					@Localizer["m"]
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<label class="form-label" for="maxPermanentLinkInput">
+					@Localizer["Maximum length of the permanent link:"]
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5 col-md-4 col-lg-3 col-xxl-2">
+				<input class="form-control border-primary border-opacity-75" type="number" id="maxPermanentLinkInput" step="0.01"
+		min="@diapasons.MaxPermanentLinkDiapason.Min.ToString(InvariantCulture)" max="@diapasons.MaxPermanentLinkDiapason.Max.ToString(InvariantCulture)"
+					   asp-for="MaxPermanentLink" required />
+			</div>
+			<div class="col d-flex align-items-end ps-0">
+				<label class="form-label mb-1" for="maxPermanentLinkInput">
+					@Localizer["m"]
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<label class="form-label" for="numberOfWorkplacesInput">
+					@Localizer["Workplaces count:"]
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5 col-md-4 col-lg-3 col-xxl-2">
+				<input class="form-control border-primary border-opacity-75" id="numberOfWorkplacesInput" step="1"
+		min="@diapasons.NumberOfWorkplacesDiapason.Min.ToString(InvariantCulture)" max="@diapasons.NumberOfWorkplacesDiapason.Max.ToString(InvariantCulture)"
+					   asp-for="NumberOfWorkplaces" required />
+			</div>
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<label class="form-label" for="numberOfPortsInput">
+					@Localizer["Ports count per 1 workplace:"]
+				</label>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-5 col-md-4 col-lg-3 col-xxl-2">
+				<input class="form-control border-primary border-opacity-75" id="numberOfPortsInput" step="1"
+		min="@diapasons.NumberOfPortsDiapason.Min.ToString(InvariantCulture)" max="@diapasons.NumberOfPortsDiapason.Max.ToString(InvariantCulture)"
+					   asp-for="NumberOfPorts" required />
+			</div>
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<div class="form-check">
+					<input class="form-check-input border-primary border-opacity-75" id="isCableHankMeterageAvailabilityCheckBox" asp-for="IsCableHankMeterageAvailability">
+					<label class="form-check-label" for="isCableHankMeterageAvailabilityCheckBox">
+						@Localizer["Take into account the cable hank meterage"]
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-2">
+			<div class="col-5 col-md-4 col-lg-3 col-xxl-2">
+				@{
+					if (Model.IsCableHankMeterageAvailability)
+					{
+						<input class="form-control border-primary border-opacity-75" step="1" list="cableHankMeterageDatalist" id="cableHankMeterageInput"
+			min="@diapasons.CableHankMeterageDiapason.Min.ToString(InvariantCulture)" max="@diapasons.CableHankMeterageDiapason.Max.ToString(InvariantCulture)"
+					   asp-for="CableHankMeterage" required />
+					}
+					else
+					{
+						<input class="form-control border-primary border-opacity-75" id="cableHankMeterageInput" asp-for="CableHankMeterage" disabled />
+					}
+				}
+				<datalist id="cableHankMeterageDatalist">
+					<option>50</option>
+					<option>100</option>
+					<option>305</option>
+					<option>500</option>
+					<option>1000</option>
+				</datalist>
+			</div>
+			<div class="col-auto d-flex align-items-end ps-0">
+				<label class="form-label mb-1" for="cableHankMeterageInput">
+					@Localizer["m"]
+				</label>
+			</div>
+		</div>
+	</div>
+
+	<hr class="border border-primary opacity-50" />
+
+	<h5 class="fw-normal mb-3">
+		@Localizer["Advanced calculation parameters"]
+	</h5>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<div class="form-check">
+					<input class="form-check-input border-primary border-opacity-75" id="isStrictComplianceWithTheStandartCheckBox" asp-for="IsStrictComplianceWithTheStandart">
+					<label class="form-check-label" for="isStrictComplianceWithTheStandartCheckBox">
+						@Localizer["Strict compliance with the standart"]
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row ms-1 mt-2">
+			<div class="col">
+				<div class="form-check">
+					@{
+						if (Model.IsStrictComplianceWithTheStandart)
+						{
+							<input class="form-check-input border-primary border-opacity-75" id="isAnArbitraryNumberOfPortsCheckBox" asp-for="IsAnArbitraryNumberOfPorts">
+						}
+						else
+						{
+							<input class="form-check-input border-primary border-opacity-75" id="isAnArbitraryNumberOfPortsCheckBox" asp-for="IsAnArbitraryNumberOfPorts" disabled>
+						}
+					}
+					<label class="form-check-label" for="isAnArbitraryNumberOfPortsCheckBox">
+						@Localizer["Arbitary ports count per workplace"]
+					</label>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<div class="form-check">
+					<input class="form-check-input border-primary border-opacity-75" id="isTechnologicalReserveAvailabilityCheckBox" asp-for="IsTechnologicalReserveAvailability">
+					<label class="form-check-label" for="isTechnologicalReserveAvailabilityCheckBox">
+						@Localizer["Availability of technological reserve coefficient:"]
+					</label>
+				</div>
+			</div>
+		</div>
+		<div class="row ms-1 mt-2">
+			<div class="col-5 col-md-4 col-lg-3 col-xxl-2">
+				@{
+					if (Model.IsTechnologicalReserveAvailability)
+					{
+						<input class="form-control border-primary border-opacity-75" type="number" step="0.01"
+			min="@diapasons.TechnologicalReserveDiapason.Min.ToString(InvariantCulture)" max="@diapasons.TechnologicalReserveDiapason.Max.ToString(InvariantCulture)"
+			id="technologicalReserveInput" asp-for="TechnologicalReserve" required />
+					}
+					else
+					{
+						<input class="form-control border-primary border-opacity-75" id="technologicalReserveInput" asp-for="TechnologicalReserve" disabled />
+					}
+				}
+			</div>
+		</div>
+	</div>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col">
+				<div class="form-check">
+					<input class="form-check-input border-primary border-opacity-75" id="isRecommendationsAvailabilityCheckBox" asp-for="IsRecommendationsAvailability">
+					<label class="form-check-label" for="isRecommendationsAvailabilityCheckBox">
+						@Localizer["Add cable selection recommendations"]
+					</label>
+				</div>
+			</div>
+		</div>
+
+		@{
+			if (Model.IsRecommendationsAvailability)
+			{
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="IsCableRouteRunOutdoors">
+							<label class="form-check-label" asp-for="IsCableRouteRunOutdoors">
+								@Localizer["Will the sections of the cable route run outdoors"]
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="IsConsiderFireSafetyRequirements">
+							<label class="form-check-label" asp-for="IsConsiderFireSafetyRequirements">
+								@Localizer["Consider standard fire safety requirements"]
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="IsCableShieldingNecessity">
+							<label class="form-check-label" asp-for="IsCableShieldingNecessity">
+								@Localizer["Take into account the necessity of cable shielding"]
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<label class="form-check-label">
+							@Localizer["Used connection interfaces"]
+						</label>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasTenBase_T">
+							<label class="form-check-label" asp-for="HasTenBase_T">
+								10BASE-T
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasFastEthernet">
+							<label class="form-check-label" asp-for="HasFastEthernet">
+								Fast Ethernet (100BASE-T)
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasGigabitBASE_T">
+							<label class="form-check-label" asp-for="HasGigabitBASE_T">
+								Gigabit Ethernet (1000BASE-T)
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasGigabitBASE_TX">
+							<label class="form-check-label" asp-for="HasGigabitBASE_TX">
+								Gigabit Ethernet (1000BASE-TX)
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasTwoPointFiveGBASE_T">
+							<label class="form-check-label" asp-for="HasTwoPointFiveGBASE_T">
+								2.5GBASE-T
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasFiveGBASE_T">
+							<label class="form-check-label" asp-for="HasFiveGBASE_T">
+								5GBASE-T
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasTenGE">
+							<label class="form-check-label" asp-for="HasTenGE">
+								10GE (10GBASE-T)
+							</label>
+						</div>
+					</div>
+				</div>
+			}
+			else
+			{
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="IsCableRouteRunOutdoors" disabled>
+							<label class="form-check-label" asp-for="IsCableRouteRunOutdoors">
+								@Localizer["Will the sections of the cable route run outdoors"]
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="IsConsiderFireSafetyRequirements" disabled>
+							<label class="form-check-label" asp-for="IsConsiderFireSafetyRequirements">
+								@Localizer["Consider standard fire safety requirements"]
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="IsCableShieldingNecessity" disabled>
+							<label class="form-check-label" asp-for="IsCableShieldingNecessity">
+								@Localizer["Take into account the necessity of cable shielding"]
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-1 mt-2">
+					<div class="col">
+						<label class="form-check-label text-muted opacity-75">
+							@Localizer["Used connection interfaces"]
+						</label>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasTenBase_T" disabled>
+							<label class="form-check-label" asp-for="HasTenBase_T">
+								10BASE-T
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasFastEthernet" disabled>
+							<label class="form-check-label" asp-for="HasFastEthernet">
+								Fast Ethernet (100BASE-T)
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasGigabitBASE_T" disabled>
+							<label class="form-check-label" asp-for="HasGigabitBASE_T">
+								Gigabit Ethernet (1000BASE-T)
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasGigabitBASE_TX" disabled>
+							<label class="form-check-label" asp-for="HasGigabitBASE_TX">
+								Gigabit Ethernet (1000BASE-TX)
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasTwoPointFiveGBASE_T" disabled>
+							<label class="form-check-label" asp-for="HasTwoPointFiveGBASE_T">
+								2.5GBASE-T
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasFiveGBASE_T" disabled>
+							<label class="form-check-label" asp-for="HasFiveGBASE_T">
+								5GBASE-T
+							</label>
+						</div>
+					</div>
+				</div>
+				<div class="row ms-3 mt-2">
+					<div class="col">
+						<div class="form-check">
+							<input class="form-check-input border-primary border-opacity-75" asp-for="HasTenGE" disabled>
+							<label class="form-check-label" asp-for="HasTenGE">
+								10GE (10GBASE-T)
+							</label>
+						</div>
+					</div>
+				</div>
+			}
+		}
+	</div>
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col-auto">
+				<button type="button" id="restoreDefaultsButton" class="btn btn-sm btn-outline-secondary">
+					<i class="bi bi-gear"></i> @Localizer["Restore defaults"]
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<hr class="border border-primary opacity-50" />
+
+	<div class="mb-3">
+		<div class="row">
+			<div class="col-auto">
+				<button type="submit" id="calculateButton" class="btn btn-lg btn-outline-primary fw-semibold">
+					<i class="bi bi-calculator"></i> @Localizer["Calculate"]
+				</button>
+				<input type="hidden" id="recordTimeInput" asp-for="RecordTime" />
+			</div>
+		</div>
+	</div>
+
+</form>
