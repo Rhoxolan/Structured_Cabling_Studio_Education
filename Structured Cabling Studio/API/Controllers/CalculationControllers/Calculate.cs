@@ -92,7 +92,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// <returns>The partial view with the display of the structured cabling configuration</returns>
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Calculate(/*CalculateViewModel calculateVM*/)
+		public async Task<IActionResult> ToCalculate(/*CalculateViewModel calculateVM*/)
 		{
 			throw new NotImplementedException();
 		}
