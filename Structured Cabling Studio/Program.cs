@@ -1,7 +1,25 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using StructuredCablingStudio.Contexts;
+using StructuredCablingStudio.Entities;
+using StructuredCablingStudio.Interceptors;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddIdentity<User, IdentityRole>()
+	.AddEntityFrameworkStores<ApplicationContext>();
+
+builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
+	.AddDbContext<ApplicationContext>((sp, opt) =>
+	{
+		opt.UseSqlServer(builder.Configuration.GetConnectionString("CablingConfigurationsDB"))
+		.AddInterceptors(sp.GetRequiredService<ConfigureSessionContextInterceptor>());
+	});
 
 var app = builder.Build();
 
