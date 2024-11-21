@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using StructuredCablingStudio.Contexts;
 using StructuredCablingStudio.Entities;
+using StructuredCablingStudio.Filters.LocalizationFilters;
 using StructuredCablingStudio.Interceptors;
 using System.Globalization;
 
@@ -20,6 +21,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
+	.AddScoped<SetLocalizationCookiesFilterAttribute>()
 	.AddDbContext<ApplicationContext>((sp, opt) =>
 	{
 		opt.UseSqlServer(builder.Configuration.GetConnectionString("CablingConfigurationsDB"))
