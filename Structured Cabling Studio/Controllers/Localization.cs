@@ -6,7 +6,7 @@ namespace StructuredCablingStudio.Controllers
 	public class Localization : Controller
 	{
 		[SetLocalizationCookiesFilter]
-		public async Task<IActionResult> SetLanguage(string culture, string returnUrl)
+		public IActionResult SetLanguage(string culture, string returnUrl)
 		{
 			return LocalRedirect(returnUrl);
 		}

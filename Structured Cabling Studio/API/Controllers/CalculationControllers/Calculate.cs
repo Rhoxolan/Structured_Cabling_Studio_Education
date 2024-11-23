@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StructuredCablingStudio.API.Models.CalculationModels;
+using StructuredCablingStudio.Models.CalculationModels;
 
 namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 {
-    [Route("api/{controller}/{action}/{id?}")]
+	[Route("api/{controller}/{action}/{id?}")]
 	public class Calculate : Controller
 	{
 		/// <summary>
