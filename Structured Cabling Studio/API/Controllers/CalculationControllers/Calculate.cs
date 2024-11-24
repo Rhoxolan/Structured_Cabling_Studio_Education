@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StructuredCablingStudio.DTOs.CalculationDTOs;
+using StructuredCablingStudio.Filters.CalculationFilters;
 using StructuredCablingStudio.Models.CalculationModels;
 
 namespace StructuredCablingStudio.API.Controllers.CalculationControllers
@@ -10,9 +12,12 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Returns the partial view with the clean Calculate form
 		/// </summary>
 		[HttpGet]
+		[SetStructuredCablingStudioParametersActionFilter(Order = int.MinValue)]
+		[SetStructuredCablingStudioParametersActionFilter(Order = int.MinValue)]
+		[SetStructuredCablingStudioParametersActionFilter(Order = int.MinValue)]
 		public IActionResult GetCalculateForm(StructuredCablingStudioParameters cablingParameters,
-			ConfigurationCalculateParameters calculateParameters/*,
-			CalculateDTO calculateDTO*/)
+			ConfigurationCalculateParameters calculateParameters,
+			CalculateDTO calculateDTO)
 		{
 			throw new NotImplementedException();
 		}

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace StructuredCablingStudio.Filters.LocalizationFilters
 {
-	public class SetLocalizationCookiesFilterAttribute : ActionFilterAttribute
+	public class SetLocalizationCookiesActionFilterAttribute : ActionFilterAttribute
 	{
 		public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
 		{

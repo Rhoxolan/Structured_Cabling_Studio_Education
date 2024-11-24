@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using StructuredCablingStudio.Binders.CalculationBinders;
 using StructuredCablingStudio.Contexts;
 using StructuredCablingStudio.Entities;
+using StructuredCablingStudio.Filters.CalculationFilters;
 using StructuredCablingStudio.Filters.LocalizationFilters;
 using StructuredCablingStudio.Interceptors;
 using System.Globalization;
@@ -26,7 +27,10 @@ builder.Services.AddIdentity<User, IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
-	.AddScoped<SetLocalizationCookiesFilterAttribute>()
+	.AddScoped<SetLocalizationCookiesActionFilterAttribute>()
+	.AddScoped<SetStructuredCablingStudioParametersActionFilterAttribute>()
+	.AddScoped<SetConfigurationCalculateParametersActionFilterAttribute>()
+	.AddScoped<SetCalculateDTOActionFilterAttribute>()
 	.AddDbContext<ApplicationContext>((sp, opt) =>
 	{
 		opt.UseSqlServer(builder.Configuration.GetConnectionString("CablingConfigurationsDB"))
