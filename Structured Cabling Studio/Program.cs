@@ -34,6 +34,7 @@ builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
 	.AddScoped<SetConfigurationCalculateParametersActionFilterAttribute>()
 	.AddScoped<SetCalculateDTOActionFilterAttribute>()
 	.AddScoped<SetGetCalculateFormViewModelActionFilterAttribute>()
+	.AddScoped<SetGetCalculateFormViewDataActionFilterAttribute>()
 	.AddDbContext<ApplicationContext>((sp, opt) =>
 	{
 		opt.UseSqlServer(builder.Configuration.GetConnectionString("CablingConfigurationsDB"))

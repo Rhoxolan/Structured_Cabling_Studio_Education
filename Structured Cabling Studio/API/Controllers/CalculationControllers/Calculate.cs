@@ -16,6 +16,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		[ServiceFilter(typeof(SetConfigurationCalculateParametersActionFilterAttribute))]
 		[ServiceFilter(typeof(SetCalculateDTOActionFilterAttribute))]
 		[SetGetCalculateFormViewModelActionFilter]
+		[SetGetCalculateFormViewModelActionFilter]
 		public IActionResult GetCalculateForm(StructuredCablingStudioParameters cablingParameters,
 			ConfigurationCalculateParameters calculateParameters,
 			CalculateDTO calculateDTO)
