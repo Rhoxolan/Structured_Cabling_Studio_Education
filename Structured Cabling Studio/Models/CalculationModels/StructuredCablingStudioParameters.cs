@@ -2,11 +2,11 @@
 {
 	public class StructuredCablingStudioParameters
 	{
-		public StructuredCablingStudioDiapasons Diapasons { get; }
+		public StructuredCablingStudioDiapasons Diapasons { get; set; } = default!;
 
 		public double TechnologicalReserve { get; set; }
 
-		public RecommendationsArguments RecommendationsArguments { get; }
+		public RecommendationsArguments RecommendationsArguments { get; set; } = default!;
 
 		public bool? IsRecommendationsAvailability { get; set; }
 

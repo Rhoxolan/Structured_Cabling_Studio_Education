@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using StructuredCablingStudio.DTOs.CalculationDTOs;
 using StructuredCablingStudio.Extensions.ISessionExtension;
+using StructuredCablingStudio.Services.CalculationServices.CalculationService;
 
 namespace StructuredCablingStudio.Filters.CalculationFilters
 {
-	public class SetCalculateDTOActionFilterAttribute : ActionFilterAttribute
+	public class SetCalculateDTOActionFilterAttribute(ICalculationService calculationService) : ActionFilterAttribute
 	{
 		private static readonly string _actionArgumentsKey = "calculateDTO";
 
@@ -12,13 +12,7 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 		{
 			if (context.ActionArguments[_actionArgumentsKey] == null)
 			{
-				var calculateDTO = new CalculateDTO
-				{
-					MinPermanentLink = 25,
-					MaxPermanentLink = 85,
-					NumberOfPorts = 1,
-					NumberOfWorkplaces = 10,
-				};
+				var calculateDTO = calculationService.GetCalculateDTODefault();
 				context.HttpContext.Session?.SetCalculateDTO(calculateDTO);
 				context.ActionArguments[_actionArgumentsKey] = calculateDTO;
 			}

@@ -8,6 +8,7 @@ using StructuredCablingStudio.Entities;
 using StructuredCablingStudio.Filters.CalculationFilters;
 using StructuredCablingStudio.Filters.LocalizationFilters;
 using StructuredCablingStudio.Interceptors;
+using StructuredCablingStudio.Services.CalculationServices.CalculationService;
 using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,6 +28,7 @@ builder.Services.AddIdentity<User, IdentityRole>()
 	.AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
+	.AddTransient<ICalculationService, CalculationService>()
 	.AddScoped<SetLocalizationCookiesActionFilterAttribute>()
 	.AddScoped<SetStructuredCablingStudioParametersActionFilterAttribute>()
 	.AddScoped<SetConfigurationCalculateParametersActionFilterAttribute>()

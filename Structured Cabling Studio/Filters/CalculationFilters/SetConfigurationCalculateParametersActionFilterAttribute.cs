@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using StructuredCablingStudio.Extensions.ISessionExtension;
-using StructuredCablingStudio.Models.CalculationModels;
+using StructuredCablingStudio.Services.CalculationServices.CalculationService;
 
 namespace StructuredCablingStudio.Filters.CalculationFilters
 {
-	public class SetConfigurationCalculateParametersActionFilterAttribute : ActionFilterAttribute
+	public class SetConfigurationCalculateParametersActionFilterAttribute(ICalculationService calculationService) : ActionFilterAttribute
 	{
 		private static readonly string _actionArgumentsKey = "calculateParameters";
 
@@ -12,10 +12,7 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 		{
 			if (context.ActionArguments[_actionArgumentsKey] == null)
 			{
-				var parameters = new ConfigurationCalculateParameters
-				{
-					IsCableHankMeterageAvailability = true
-				};
+				var parameters = calculationService.GetConfigurationCalculateParametersDefault();
 				context.HttpContext.Session?.SetConfigurationCalculateParameters(parameters);
 				context.ActionArguments[_actionArgumentsKey] = parameters;
 			}

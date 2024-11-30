@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using StructuredCablingStudio.Extensions.ISessionExtension;
-using StructuredCablingStudio.Models.CalculationModels;
+using StructuredCablingStudio.Services.CalculationServices.CalculationService;
 
 namespace StructuredCablingStudio.Filters.CalculationFilters
 {
-	public class SetStructuredCablingStudioParametersActionFilterAttribute : ActionFilterAttribute
+	public class SetStructuredCablingStudioParametersActionFilterAttribute(ICalculationService calculationService) : ActionFilterAttribute
 	{
 		private static readonly string _actionArgumentsKey = "cablingParameters";
 
@@ -12,21 +12,7 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 		{
 			if (context.ActionArguments[_actionArgumentsKey] == null)
 			{
-				var parameters = new StructuredCablingStudioParameters
-				{
-					IsStrictComplianceWithTheStandart = true,
-					IsAnArbitraryNumberOfPorts = true,
-					IsTechnologicalReserveAvailability = true,
-					IsRecommendationsAvailability = true
-				};
-				parameters.RecommendationsArguments.IsolationType = IsolationType.Indoor;
-				parameters.RecommendationsArguments.IsolationMaterial = IsolationMaterial.LSZH;
-				parameters.RecommendationsArguments.ShieldedType = ShieldedType.UTP;
-				parameters.RecommendationsArguments.ConnectionInterfaces = new List<ConnectionInterfaceStandard>
-				{
-					ConnectionInterfaceStandard.FastEthernet,
-					ConnectionInterfaceStandard.GigabitBASE_T
-				};
+				var parameters = await calculationService.GetStructuredCablingStudioParametersDefaultAsync();
 				context.HttpContext.Session?.SetStructuredCablingStudioParameters(parameters);
 				context.ActionArguments[_actionArgumentsKey] = parameters;
 			}
