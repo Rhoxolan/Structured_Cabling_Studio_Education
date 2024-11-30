@@ -19,6 +19,11 @@ builder.Services.AddControllersWithViews(opt =>
 	opt.ModelBinderProviders.Insert(0, new ConfigurationCalculateParametersModelBinderProvider());
 	opt.ModelBinderProviders.Insert(0, new CalculateDTOModelBinderProvider());
 })
+	.AddRazorOptions(opt =>
+	{
+		opt.ViewLocationFormats.Add("/API/Views/CalculationViews/{1}/{0}" + RazorViewEngine.ViewExtension);
+		opt.ViewLocationFormats.Add("/API/Views/Shared/{0}" + RazorViewEngine.ViewExtension);
+	})
 	.AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
 	.AddDataAnnotationsLocalization();
 

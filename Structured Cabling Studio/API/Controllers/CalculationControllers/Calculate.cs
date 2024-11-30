@@ -18,10 +18,9 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		[SetGetCalculateFormViewModelActionFilter]
 		[SetGetCalculateFormViewModelActionFilter]
 		public IActionResult GetCalculateForm(StructuredCablingStudioParameters cablingParameters,
-			ConfigurationCalculateParameters calculateParameters,
-			CalculateDTO calculateDTO)
+			ConfigurationCalculateParameters calculateParameters, CalculateDTO calculateDTO)
 		{
-			throw new NotImplementedException();
+			return PartialView("_CalculateFormPartial");
 		}
 
 		/// <summary>
@@ -30,7 +29,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		[HttpGet]
 		public IActionResult GetConfigurationDisplayCalculate()
 		{
-			throw new NotImplementedException();
+			return PartialView("_ConfigurationDisplayCalculatePartial");
 		}
 
 		/// <summary>
