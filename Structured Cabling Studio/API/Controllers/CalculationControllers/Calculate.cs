@@ -12,9 +12,10 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Returns the partial view with the clean Calculate form
 		/// </summary>
 		[HttpGet]
-		[ServiceFilter(typeof(SetStructuredCablingStudioParametersActionFilterAttribute), Order = int.MinValue)]
-		[ServiceFilter(typeof(SetConfigurationCalculateParametersActionFilterAttribute), Order = int.MinValue)]
-		[ServiceFilter(typeof(SetCalculateDTOActionFilterAttribute), Order = int.MinValue)]
+		[ServiceFilter(typeof(SetStructuredCablingStudioParametersActionFilterAttribute))]
+		[ServiceFilter(typeof(SetConfigurationCalculateParametersActionFilterAttribute))]
+		[ServiceFilter(typeof(SetCalculateDTOActionFilterAttribute))]
+		[SetGetCalculateFormViewModelActionFilter]
 		public IActionResult GetCalculateForm(StructuredCablingStudioParameters cablingParameters,
 			ConfigurationCalculateParameters calculateParameters,
 			CalculateDTO calculateDTO)
