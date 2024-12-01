@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StructuredCablingStudio.Contexts;
 using StructuredCablingStudio.DTOs.CalculationDTOs;
 using StructuredCablingStudio.Models.CalculationModels;
+using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
 using static StructuredCablingStudio.Properties.Resources;
@@ -41,25 +42,38 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 		{
 			return new StructuredCablingStudioParameters
 			{
-				IsStrictComplianceWithTheStandart
-					= bool.Parse(StructuredCablingStudioParameters_IsStrictComplianceWithTheStandart_StandartValue),
-				IsAnArbitraryNumberOfPorts
-					= bool.Parse(StructuredCablingStudioParameters_IsAnArbitraryNumberOfPorts_StandartValue),
-				IsTechnologicalReserveAvailability
-					= bool.Parse(StructuredCablingStudioParameters_IsTechnologicalReserveAvailability_StandartValue),
-				IsRecommendationsAvailability
-					= bool.Parse(StructuredCablingStudioParameters_IsRecommendationsAvailability_StandartValue),
-				TechnologicalReserve = 1.10,
+				IsStrictComplianceWithTheStandart = bool.Parse(
+					StructuredCablingStudioParameters_IsStrictComplianceWithTheStandart_StandartValue),
+
+				IsAnArbitraryNumberOfPorts = bool.Parse(
+					StructuredCablingStudioParameters_IsAnArbitraryNumberOfPorts_StandartValue),
+
+				IsTechnologicalReserveAvailability = bool.Parse(
+					StructuredCablingStudioParameters_IsTechnologicalReserveAvailability_StandartValue),
+
+				IsRecommendationsAvailability = bool.Parse(
+					StructuredCablingStudioParameters_IsRecommendationsAvailability_StandartValue),
+
+				TechnologicalReserve = double.Parse(
+					StructuredCablingStudioParameters_TechnologicalReserve_StandartValue,
+					CultureInfo.InvariantCulture),
+
 				RecommendationsArguments = new RecommendationsArguments
 				{
-					IsolationType = IsolationType.Indoor,
-					IsolationMaterial = IsolationMaterial.LSZH,
-					ShieldedType = ShieldedType.UTP,
-					ConnectionInterfaces = new List<ConnectionInterfaceStandard>
-					{
-						ConnectionInterfaceStandard.FastEthernet,
-						ConnectionInterfaceStandard.GigabitBASE_T
-					}
+					IsolationType = Enum.Parse<IsolationType>(
+						StructuredCablingStudioParameters_RecommendationsArguments_IsolationType_StandartValue),
+
+					IsolationMaterial = Enum.Parse<IsolationMaterial>(
+						StructuredCablingStudioParameters_RecommendationsArguments_IsolationMaterial_StandartValue),
+
+					ShieldedType = Enum.Parse<ShieldedType>(
+						StructuredCablingStudioParameters_RecommendationsArguments_ShieldedType_StandartValue),
+
+					ConnectionInterfaces = StructuredCablingStudioParameters_RecommendationsArguments_ConnectionInterfaces_StandartValue
+					.Split(',')
+					.Select(Enum.Parse<ConnectionInterfaceStandard>)
+					.ToList()
+
 				}
 			};
 		}
@@ -68,8 +82,11 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 		{
 			return new ConfigurationCalculateParameters
 			{
-				IsCableHankMeterageAvailability = true,
-				CableHankMeterage = 305
+				IsCableHankMeterageAvailability = bool.Parse(
+					ConfigurationCalculateParameters_IsCableHankMeterageAvailability_StandartValue),
+
+				CableHankMeterage = int.Parse(ConfigurationCalculateParameters_CableHankMeterage_StandartValue)
+
 			};
 		}
 
@@ -77,10 +94,10 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 		{
 			return new CalculateDTO
 			{
-				MinPermanentLink = 25,
-				MaxPermanentLink = 85,
-				NumberOfPorts = 1,
-				NumberOfWorkplaces = 10,
+				MinPermanentLink = double.Parse(CalculateDTO_MinPermanentLink_StandartValue, CultureInfo.InvariantCulture),
+				MaxPermanentLink = double.Parse(CalculateDTO_MaxPermanentLink_StandartValue, CultureInfo.InvariantCulture),
+				NumberOfPorts = int.Parse(CalculateDTO_NumberOfPorts_StandartValue),
+				NumberOfWorkplaces = int.Parse(CalculateDTO_NumberOfWorkplaces_StandartValue),
 			};
 		}
 

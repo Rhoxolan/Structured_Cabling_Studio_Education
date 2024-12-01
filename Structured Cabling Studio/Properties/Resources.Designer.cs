@@ -61,6 +61,60 @@ namespace StructuredCablingStudio.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 85.
+        /// </summary>
+        internal static string CalculateDTO_MaxPermanentLink_StandartValue {
+            get {
+                return ResourceManager.GetString("CalculateDTO.MaxPermanentLink.StandartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 25.
+        /// </summary>
+        internal static string CalculateDTO_MinPermanentLink_StandartValue {
+            get {
+                return ResourceManager.GetString("CalculateDTO.MinPermanentLink.StandartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.
+        /// </summary>
+        internal static string CalculateDTO_NumberOfPorts_StandartValue {
+            get {
+                return ResourceManager.GetString("CalculateDTO.NumberOfPorts.StandartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 10.
+        /// </summary>
+        internal static string CalculateDTO_NumberOfWorkplaces_StandartValue {
+            get {
+                return ResourceManager.GetString("CalculateDTO.NumberOfWorkplaces.StandartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 305.
+        /// </summary>
+        internal static string ConfigurationCalculateParameters_CableHankMeterage_StandartValue {
+            get {
+                return ResourceManager.GetString("ConfigurationCalculateParameters.CableHankMeterage.StandartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to true.
+        /// </summary>
+        internal static string ConfigurationCalculateParameters_IsCableHankMeterageAvailability_StandartValue {
+            get {
+                return ResourceManager.GetString("ConfigurationCalculateParameters.IsCableHankMeterageAvailability.StandartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to true.
         /// </summary>
         internal static string StructuredCablingStudioParameters_IsAnArbitraryNumberOfPorts_StandartValue {
@@ -95,6 +149,55 @@ namespace StructuredCablingStudio.Properties {
             get {
                 return ResourceManager.GetString("StructuredCablingStudioParameters.IsTechnologicalReserveAvailability.StandartValu" +
                         "e", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to FastEthernet,GigabitBASE_T.
+        /// </summary>
+        internal static string StructuredCablingStudioParameters_RecommendationsArguments_ConnectionInterfaces_StandartValue {
+            get {
+                return ResourceManager.GetString("StructuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.S" +
+                        "tandartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LSZH.
+        /// </summary>
+        internal static string StructuredCablingStudioParameters_RecommendationsArguments_IsolationMaterial_StandartValue {
+            get {
+                return ResourceManager.GetString("StructuredCablingStudioParameters.RecommendationsArguments.IsolationMaterial.Stan" +
+                        "dartValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Indoor.
+        /// </summary>
+        internal static string StructuredCablingStudioParameters_RecommendationsArguments_IsolationType_StandartValue {
+            get {
+                return ResourceManager.GetString("StructuredCablingStudioParameters.RecommendationsArguments.IsolationType.Standart" +
+                        "Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UTP.
+        /// </summary>
+        internal static string StructuredCablingStudioParameters_RecommendationsArguments_ShieldedType_StandartValue {
+            get {
+                return ResourceManager.GetString("StructuredCablingStudioParameters.RecommendationsArguments.ShieldedType.StandartV" +
+                        "alue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1.10.
+        /// </summary>
+        internal static string StructuredCablingStudioParameters_TechnologicalReserve_StandartValue {
+            get {
+                return ResourceManager.GetString("StructuredCablingStudioParameters.TechnologicalReserve.StandartValue", resourceCulture);
             }
         }
     }

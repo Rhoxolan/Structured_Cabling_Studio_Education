@@ -117,6 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CalculateDTO.MaxPermanentLink.StandartValue" xml:space="preserve">
+    <value>85</value>
+  </data>
+  <data name="CalculateDTO.MinPermanentLink.StandartValue" xml:space="preserve">
+    <value>25</value>
+  </data>
+  <data name="CalculateDTO.NumberOfPorts.StandartValue" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="CalculateDTO.NumberOfWorkplaces.StandartValue" xml:space="preserve">
+    <value>10</value>
+  </data>
+  <data name="ConfigurationCalculateParameters.CableHankMeterage.StandartValue" xml:space="preserve">
+    <value>305</value>
+  </data>
+  <data name="ConfigurationCalculateParameters.IsCableHankMeterageAvailability.StandartValue" xml:space="preserve">
+    <value>true</value>
+  </data>
   <data name="StructuredCablingStudioParameters.IsAnArbitraryNumberOfPorts.StandartValue" xml:space="preserve">
     <value>true</value>
   </data>
@@ -129,5 +147,20 @@
   </data>
   <data name="StructuredCablingStudioParameters.IsTechnologicalReserveAvailability.StandartValue" xml:space="preserve">
     <value>true</value>
+  </data>
+  <data name="StructuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.StandartValue" xml:space="preserve">
+    <value>FastEthernet,GigabitBASE_T</value>
+  </data>
+  <data name="StructuredCablingStudioParameters.RecommendationsArguments.IsolationMaterial.StandartValue" xml:space="preserve">
+    <value>LSZH</value>
+  </data>
+  <data name="StructuredCablingStudioParameters.RecommendationsArguments.IsolationType.StandartValue" xml:space="preserve">
+    <value>Indoor</value>
+  </data>
+  <data name="StructuredCablingStudioParameters.RecommendationsArguments.ShieldedType.StandartValue" xml:space="preserve">
+    <value>UTP</value>
+  </data>
+  <data name="StructuredCablingStudioParameters.TechnologicalReserve.StandartValue" xml:space="preserve">
+    <value>1.10</value>
   </data>
 </root>
