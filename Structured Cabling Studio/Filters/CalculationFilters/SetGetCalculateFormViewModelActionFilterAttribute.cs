@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using StructuredCablingStudio.API.ViewModels.CalculationViewModels;
+using StructuredCablingStudio.ViewModels.CalculationViewModels;
 using StructuredCablingStudio.DTOs.CalculationDTOs;
 using StructuredCablingStudio.Models.CalculationModels;
 
@@ -22,6 +22,11 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 
 			var viewModel = new CalculateViewModel
 			{
+				IsStrictComplianceWithTheStandart = cablingParameters.IsStrictComplianceWithTheStandart.GetValueOrDefault(),
+				IsRecommendationsAvailability = cablingParameters.IsRecommendationsAvailability.GetValueOrDefault(),
+				IsTechnologicalReserveAvailability = cablingParameters.IsTechnologicalReserveAvailability.GetValueOrDefault(),
+				IsAnArbitraryNumberOfPorts = cablingParameters.IsAnArbitraryNumberOfPorts.GetValueOrDefault(),
+				TechnologicalReserve = cablingParameters.TechnologicalReserve,
 				IsCableHankMeterageAvailability = calculateParameters.IsCableHankMeterageAvailability.GetValueOrDefault(),
 				CableHankMeterage = calculateParameters.CableHankMeterage,
 				MinPermanentLink = calculateDTO.MinPermanentLink,
