@@ -5,13 +5,14 @@ using StructuredCablingStudio.DTOs.CalculationDTOs;
 using StructuredCablingStudio.Models.CalculationModels;
 using System.Xml;
 using System.Xml.Serialization;
+using static StructuredCablingStudio.Properties.Resources;
 
 namespace StructuredCablingStudio.Services.CalculationServices.CalculationService
 {
-    public class CalculationService(ApplicationContext context) : ICalculationService
-    {
-        public async Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync()
-        {
+	public class CalculationService(ApplicationContext context) : ICalculationService
+	{
+		public async Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync()
+		{
 			var inputParameters = GetStructuredCablingStudioParametersDefaultValue();
 			XmlDocument inputdocument = SerializeToXML(inputParameters);
 
@@ -40,10 +41,14 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 		{
 			return new StructuredCablingStudioParameters
 			{
-				IsStrictComplianceWithTheStandart = true,
-				IsAnArbitraryNumberOfPorts = true,
-				IsTechnologicalReserveAvailability = true,
-				IsRecommendationsAvailability = true,
+				IsStrictComplianceWithTheStandart
+					= bool.Parse(StructuredCablingStudioParameters_IsStrictComplianceWithTheStandart_StandartValue),
+				IsAnArbitraryNumberOfPorts
+					= bool.Parse(StructuredCablingStudioParameters_IsAnArbitraryNumberOfPorts_StandartValue),
+				IsTechnologicalReserveAvailability
+					= bool.Parse(StructuredCablingStudioParameters_IsTechnologicalReserveAvailability_StandartValue),
+				IsRecommendationsAvailability
+					= bool.Parse(StructuredCablingStudioParameters_IsRecommendationsAvailability_StandartValue),
 				TechnologicalReserve = 1.10,
 				RecommendationsArguments = new RecommendationsArguments
 				{
@@ -90,7 +95,7 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 
 			return xmlDocument;
 		}
-		
+
 		private T? DeserializeFromXML<T>(XmlDocument xmlDocument)
 		{
 			var serializer = new XmlSerializer(typeof(T));
