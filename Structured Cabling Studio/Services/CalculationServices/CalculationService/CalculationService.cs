@@ -14,7 +14,7 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 	{
 		public async Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync()
 		{
-			var inputParameters = GetStructuredCablingStudioParametersDefaultValue();
+			StructuredCablingStudioParameters inputParameters = GetStructuredCablingStudioParametersDefaultValue();
 			XmlDocument inputdocument = SerializeToXML(inputParameters);
 
 			var documentParameter = new SqlParameter("StructuredCablingStudioParameters", inputdocument.OuterXml);
