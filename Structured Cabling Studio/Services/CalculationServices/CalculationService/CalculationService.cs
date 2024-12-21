@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using StructuredCablingStudio.Contexts;
 using StructuredCablingStudio.DTOs.CalculationDTOs;
 using StructuredCablingStudio.Models.CalculationModels;
+using System.Data;
 using System.Globalization;
 using System.Xml;
 using System.Xml.Serialization;
@@ -17,7 +18,10 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			StructuredCablingStudioParameters inputParameters = GetStructuredCablingStudioParametersDefaultValue();
 			XmlDocument inputdocument = SerializeToXML(inputParameters);
 
-			var documentParameter = new SqlParameter("StructuredCablingStudioParameters", inputdocument.OuterXml);
+			var documentParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
+			{
+				SqlValue = inputdocument.OuterXml
+			};
 			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.SetStructuredCablingStudioParametersDiapasons 
 																	@StructuredCablingStudioParameters = {documentParameter} OUTPUT");
 
@@ -108,7 +112,7 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			using var stringWriter = new StringWriter();
 
 			serializer.Serialize(stringWriter, obj);
-			xmlDocument.Load(stringWriter.ToString());
+			xmlDocument.LoadXml(stringWriter.ToString());
 
 			return xmlDocument;
 		}

@@ -4,8 +4,8 @@ using StructuredCablingStudio.Models.CalculationModels;
 
 namespace StructuredCablingStudio.Binders.CalculationBinders
 {
-    public class ConfigurationCalculateParametersModelBinder
-    {
+    public class ConfigurationCalculateParametersModelBinder : IModelBinder
+	{
         public Task BindModelAsync(ModelBindingContext bindingContext)
         {
             if (bindingContext?.HttpContext?.Session != null)

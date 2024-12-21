@@ -42,7 +42,7 @@ builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
 	.AddScoped<SetGetCalculateFormViewDataActionFilterAttribute>()
 	.AddDbContext<ApplicationContext>((sp, opt) =>
 	{
-		opt.UseSqlServer(builder.Configuration.GetConnectionString("CablingConfigurationsDB"))
+		opt.UseSqlServer(builder.Configuration.GetConnectionString("StructuredCablingStudioDatabase"))
 		.AddInterceptors(sp.GetRequiredService<ConfigureSessionContextInterceptor>());
 	})
 	.AddLocalization(opt => opt.ResourcesPath = "Resources")
