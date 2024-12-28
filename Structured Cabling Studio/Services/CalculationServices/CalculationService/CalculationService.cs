@@ -20,7 +20,8 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 
 			var documentParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
 			{
-				SqlValue = inputdocument.OuterXml
+				SqlValue = inputdocument.OuterXml,
+				Direction = ParameterDirection.InputOutput,
 			};
 			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.SetStructuredCablingStudioParametersDiapasons 
 																	@StructuredCablingStudioParameters = {documentParameter} OUTPUT");
