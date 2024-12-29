@@ -24,8 +24,8 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 					IsTechnologicalReserveAvailability = model.IsTechnologicalReserveAvailability,
 					TechnologicalReserve = model.TechnologicalReserve
 				};
-				structuredCablingStudioParameters
-					= await calculationService.SetStructuredCablingStudioParametersDiapasonsAsync(structuredCablingStudioParameters);
+				structuredCablingStudioParameters.Diapasons
+					= await calculationService.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
 				if (model.MinPermanentLink > (double)structuredCablingStudioParameters.Diapasons.MinPermanentLinkDiapason.Max)
 				{
 					model.MinPermanentLink = (double)structuredCablingStudioParameters.Diapasons.MinPermanentLinkDiapason.Max;

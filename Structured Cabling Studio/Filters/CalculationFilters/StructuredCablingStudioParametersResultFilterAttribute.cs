@@ -56,8 +56,8 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 				{
 					structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Add(ConnectionInterfaceStandard.TenGE);
 				}
-				structuredCablingStudioParameters
-					= await calculationService.SetStructuredCablingStudioParametersDiapasonsAsync(structuredCablingStudioParameters);
+				structuredCablingStudioParameters.Diapasons
+					= await calculationService.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
 
 				controller.ViewData[_viewDataDiapasonsKey] = structuredCablingStudioParameters.Diapasons;
 

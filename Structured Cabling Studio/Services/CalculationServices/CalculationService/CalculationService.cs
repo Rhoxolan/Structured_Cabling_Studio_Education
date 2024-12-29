@@ -13,18 +13,18 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 {
 	public class CalculationService(ApplicationContext context) : ICalculationService
 	{
-		public async Task<StructuredCablingStudioParameters> SetStructuredCablingStudioParametersDiapasonsAsync(
+		public async Task<StructuredCablingStudioDiapasons> SetStructuredCablingStudioDiapasonsAsync(
 			StructuredCablingStudioParameters structuredCablingStudioParameters)
 		{
-			return await SetStructuredCablingStudioParametersDiapasonsAsync_internal(structuredCablingStudioParameters);
+			return await SetStructuredCablingStudioDiapasonsAsync_internal(structuredCablingStudioParameters);
 		}
 
 		public async Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync()
 		{
-			StructuredCablingStudioParameters inputParameters = GetStructuredCablingStudioParametersDefaultValue();
-			var outputParameters = await SetStructuredCablingStudioParametersDiapasonsAsync_internal(inputParameters);
+			StructuredCablingStudioParameters structuredCablingStudioParameters = GetStructuredCablingStudioParametersDefaultValue();
+			structuredCablingStudioParameters.Diapasons = await SetStructuredCablingStudioDiapasonsAsync_internal(structuredCablingStudioParameters);
 
-			return outputParameters;
+			return structuredCablingStudioParameters;
 		}
 
 		public ConfigurationCalculateParameters GetConfigurationCalculateParametersDefault()
@@ -37,24 +37,30 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			return GetCalculateDTODefaultValue();
 		}
 
-		private async Task<StructuredCablingStudioParameters> SetStructuredCablingStudioParametersDiapasonsAsync_internal(
+		private async Task<StructuredCablingStudioDiapasons> SetStructuredCablingStudioDiapasonsAsync_internal(
 			StructuredCablingStudioParameters structuredCablingStudioParameters)
 		{
-			XmlDocument inputdocument = SerializeToXML(structuredCablingStudioParameters);
+			XmlDocument structuredCablingStudioParametersXMLDocument = SerializeToXML(structuredCablingStudioParameters);
 
-			var documentParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
+			var structuredCablingStudioParametersParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
 			{
-				SqlValue = inputdocument.OuterXml,
-				Direction = ParameterDirection.InputOutput,
+				SqlValue = structuredCablingStudioParametersXMLDocument.OuterXml,
 			};
-			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.SetStructuredCablingStudioParametersDiapasons 
-																	@StructuredCablingStudioParameters = {documentParameter} OUTPUT");
 
-			var outputDocument = new XmlDocument();
-			outputDocument.LoadXml(documentParameter.Value.ToString()!);
-			var outputParameters = DeserializeFromXML<StructuredCablingStudioParameters>(outputDocument)!;
+			var structuredCablingStudioDiapasonsParameter = new SqlParameter("StructuredCablingStudioDiapasons", SqlDbType.Xml)
+			{
+				Direction = ParameterDirection.Output
+			};
 
-			return outputParameters;
+			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.SetStructuredCablingStudioParametersDiapasons
+																	@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
+																	@StructuredCablingStudioDiapasons = {structuredCablingStudioDiapasonsParameter} OUTPUT");
+
+			var structuredCablingStudioDiapasonsXMLDocument = new XmlDocument();
+			structuredCablingStudioDiapasonsXMLDocument.LoadXml(structuredCablingStudioDiapasonsParameter.Value.ToString()!);
+			var structuredCablingStudioDiapasons = DeserializeFromXML<StructuredCablingStudioDiapasons>(structuredCablingStudioDiapasonsXMLDocument)!;
+
+			return structuredCablingStudioDiapasons;
 		}
 
 		private static StructuredCablingStudioParameters GetStructuredCablingStudioParametersDefaultValue()
