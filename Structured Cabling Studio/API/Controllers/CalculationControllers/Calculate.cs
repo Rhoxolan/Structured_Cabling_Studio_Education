@@ -2,6 +2,7 @@
 using StructuredCablingStudio.DTOs.CalculationDTOs;
 using StructuredCablingStudio.Filters.CalculationFilters;
 using StructuredCablingStudio.Models.CalculationModels;
+using StructuredCablingStudio.ViewModels.CalculationViewModels;
 
 namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 {
@@ -37,9 +38,12 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPut]
-		public IActionResult PutStrictComplianceWithTheStandart(/*CalculateViewModel calculateVM*/)
+		[PutStrictComplianceWithTheStandartActionFilter]
+		[ServiceFilter(typeof(DiapasonActionFilterAttribute))]
+		[ServiceFilter(typeof(StructuredCablingStudioParametersResultFilterAttribute))]
+		public IActionResult PutStrictComplianceWithTheStandart(CalculateViewModel calculateVM)
 		{
-			throw new NotImplementedException();
+			return PartialView("_CalculateFormPartial", calculateVM);
 		}
 
 		/// <summary>
@@ -47,7 +51,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPut]
-		public IActionResult PutRecommendationsAvailability(/*CalculateViewModel calculateVM*/)
+		public IActionResult PutRecommendationsAvailability(CalculateViewModel calculateVM)
 		{
 			throw new NotImplementedException();
 		}

@@ -13,10 +13,34 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 {
 	public class CalculationService(ApplicationContext context) : ICalculationService
 	{
+		public async Task<StructuredCablingStudioParameters> SetStructuredCablingStudioParametersDiapasonsAsync(
+			StructuredCablingStudioParameters structuredCablingStudioParameters)
+		{
+			return await SetStructuredCablingStudioParametersDiapasonsAsync_internal(structuredCablingStudioParameters);
+		}
+
 		public async Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync()
 		{
 			StructuredCablingStudioParameters inputParameters = GetStructuredCablingStudioParametersDefaultValue();
-			XmlDocument inputdocument = SerializeToXML(inputParameters);
+			var outputParameters = await SetStructuredCablingStudioParametersDiapasonsAsync_internal(inputParameters);
+
+			return outputParameters;
+		}
+
+		public ConfigurationCalculateParameters GetConfigurationCalculateParametersDefault()
+		{
+			return GetConfigurationCalculateParametersDefaultValue();
+		}
+
+		public CalculateDTO GetCalculateDTODefault()
+		{
+			return GetCalculateDTODefaultValue();
+		}
+
+		private async Task<StructuredCablingStudioParameters> SetStructuredCablingStudioParametersDiapasonsAsync_internal(
+			StructuredCablingStudioParameters structuredCablingStudioParameters)
+		{
+			XmlDocument inputdocument = SerializeToXML(structuredCablingStudioParameters);
 
 			var documentParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
 			{
@@ -31,16 +55,6 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			var outputParameters = DeserializeFromXML<StructuredCablingStudioParameters>(outputDocument)!;
 
 			return outputParameters;
-		}
-
-		public ConfigurationCalculateParameters GetConfigurationCalculateParametersDefault()
-		{
-			return GetConfigurationCalculateParametersDefaultValue();
-		}
-
-		public CalculateDTO GetCalculateDTODefault()
-		{
-			return GetCalculateDTODefaultValue();
 		}
 
 		private static StructuredCablingStudioParameters GetStructuredCablingStudioParametersDefaultValue()
