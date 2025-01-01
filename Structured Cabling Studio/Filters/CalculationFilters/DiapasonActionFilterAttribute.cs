@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using StructuredCablingStudio.Models.CalculationModels;
+using StructuredCablingStudio.Extensions.StructuredCablingStudioParametersExtensions;
 using StructuredCablingStudio.Services.CalculationServices.CalculationService;
 using StructuredCablingStudio.ViewModels.CalculationViewModels;
 
@@ -16,16 +16,11 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 			var model = (CalculateViewModel?)controller.ViewData.Model;
 			if (model != null)
 			{
-				var structuredCablingStudioParameters = new StructuredCablingStudioParameters
-				{
-					IsAnArbitraryNumberOfPorts = model.IsAnArbitraryNumberOfPorts,
-					IsRecommendationsAvailability = model.IsRecommendationsAvailability,
-					IsStrictComplianceWithTheStandart = model.IsStrictComplianceWithTheStandart,
-					IsTechnologicalReserveAvailability = model.IsTechnologicalReserveAvailability,
-					TechnologicalReserve = model.TechnologicalReserve
-				};
+				var structuredCablingStudioParameters = model.ToStructuredCablingStudioParameters();
+
 				structuredCablingStudioParameters.Diapasons
 					= await calculationService.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
+
 				if (model.MinPermanentLink > (double)structuredCablingStudioParameters.Diapasons.MinPermanentLinkDiapason.Max)
 				{
 					model.MinPermanentLink = (double)structuredCablingStudioParameters.Diapasons.MinPermanentLinkDiapason.Max;

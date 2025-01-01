@@ -41,6 +41,8 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		[PutStrictComplianceWithTheStandartActionFilter]
 		[ServiceFilter(typeof(DiapasonActionFilterAttribute))]
 		[ServiceFilter(typeof(StructuredCablingStudioParametersResultFilterAttribute))]
+		[ConfigurationCalculateParametersResultFilter]
+		[CalculateDTOResultFilter]
 		public IActionResult PutStrictComplianceWithTheStandart(CalculateViewModel calculateVM)
 		{
 			return PartialView("_CalculateFormPartial", calculateVM);
