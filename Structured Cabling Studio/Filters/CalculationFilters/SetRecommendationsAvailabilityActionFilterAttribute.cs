@@ -4,7 +4,7 @@ using StructuredCablingStudio.ViewModels.CalculationViewModels;
 
 namespace StructuredCablingStudio.Filters.CalculationFilters
 {
-	public class PutRecommendationsAvailabilityActionFilterAttribute : ActionFilterAttribute
+	public class SetRecommendationsAvailabilityActionFilterAttribute : ActionFilterAttribute
 	{
 		public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
 		{

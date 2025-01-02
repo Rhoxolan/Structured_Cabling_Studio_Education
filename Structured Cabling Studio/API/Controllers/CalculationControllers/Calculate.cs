@@ -37,13 +37,13 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Edits the viewmodel data from the Calculate form after applying the "StrictComplianceWithTheStandart" setting
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
-		[HttpPut]
-		[PutStrictComplianceWithTheStandartActionFilter]
+		[HttpPost]
+		[SetStrictComplianceWithTheStandartActionFilter]
 		[ServiceFilter(typeof(DiapasonActionFilterAttribute))]
 		[ServiceFilter(typeof(StructuredCablingStudioParametersResultFilterAttribute))]
 		[ConfigurationCalculateParametersResultFilter]
 		[CalculateDTOResultFilter]
-		public IActionResult PutStrictComplianceWithTheStandart(CalculateViewModel calculateVM)
+		public IActionResult SetStrictComplianceWithTheStandart(CalculateViewModel calculateVM)
 		{
 			return PartialView("_CalculateFormPartial", calculateVM);
 		}
@@ -52,13 +52,13 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Edits the viewmodel data from the Calculate form after applying the "RecommendationsAvailability" setting
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
-		[HttpPut]
-		[PutRecommendationsAvailabilityActionFilter]
+		[HttpPost]
+		[SetRecommendationsAvailabilityActionFilter]
 		[ServiceFilter(typeof(DiapasonActionFilterAttribute))]
 		[ServiceFilter(typeof(StructuredCablingStudioParametersResultFilterAttribute))]
 		[ConfigurationCalculateParametersResultFilter]
 		[CalculateDTOResultFilter]
-		public IActionResult PutRecommendationsAvailability(CalculateViewModel calculateVM)
+		public IActionResult SetRecommendationsAvailability(CalculateViewModel calculateVM)
 		{
 			return PartialView("_CalculateFormPartial", calculateVM);
 		}
@@ -67,8 +67,8 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Edits the viewmodel data from the Сalculate form after applying the "CableHankMeterageAvailability" setting
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
-		[HttpPut]
-		public IActionResult PutCableHankMeterageAvailability(/*CalculateViewModel calculateVM*/)
+		[HttpPost]
+		public IActionResult SetCableHankMeterageAvailability(/*CalculateViewModel calculateVM*/)
 		{
 			throw new NotImplementedException();
 		}
@@ -77,8 +77,8 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Edits the viewmodel data from the Сalculate form after applying the "AnArbitraryNumberOfPorts" setting
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
-		[HttpPut]
-		public IActionResult PutAnArbitraryNumberOfPorts(/*CalculateViewModel calculateVM*/)
+		[HttpPost]
+		public IActionResult SetAnArbitraryNumberOfPorts(/*CalculateViewModel calculateVM*/)
 		{
 			throw new NotImplementedException();
 		}
@@ -87,8 +87,8 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Edits the viewmodel data from the Сalculate form after applying the "TechnologicalReserveAvailability" setting
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
-		[HttpPut]
-		public IActionResult PutTechnologicalReserveAvailability(/*CalculateViewModel calculateVM*/)
+		[HttpPost]
+		public IActionResult SetTechnologicalReserveAvailability(/*CalculateViewModel calculateVM*/)
 		{
 			throw new NotImplementedException();
 		}
@@ -97,7 +97,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// Restore defaults settings on viewmodel data to the Сalculate form
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
-		[HttpPut]
+		[HttpPost]
 		public IActionResult RestoreDefaultsCalculateForm(/*CalculateViewModel calculateVM*/)
 		{
 			throw new NotImplementedException();

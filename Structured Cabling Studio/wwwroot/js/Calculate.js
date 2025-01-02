@@ -57,35 +57,35 @@ document.addEventListener('click', e => {
 document.addEventListener('click', e => {
     if (e.target.id === "isStrictComplianceWithTheStandartCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/PutStrictComplianceWithTheStandart");
+        editCalculateForm("api/Calculate/SetStrictComplianceWithTheStandart");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isAnArbitraryNumberOfPortsCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/PutAnArbitraryNumberOfPorts");
+        editCalculateForm("api/Calculate/SetAnArbitraryNumberOfPorts");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isTechnologicalReserveAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/PutTechnologicalReserveAvailability");
+        editCalculateForm("api/Calculate/SetTechnologicalReserveAvailability");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isRecommendationsAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/PutRecommendationsAvailability");
+        editCalculateForm("api/Calculate/SetRecommendationsAvailability");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isCableHankMeterageAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/PutCableHankMeterageAvailability");
+        editCalculateForm("api/Calculate/SetCableHankMeterageAvailability");
     }
 });
 
@@ -145,7 +145,7 @@ async function editCalculateForm(path) {
     document.getElementById('calculateFormDiv').classList.add('formLoading');
     try {
         let resp = await fetch(path, {
-            method: "PUT",
+            method: "POST",
             body: new FormData(document.forms.calculateForm)
         });
         if (resp.ok === true) {
