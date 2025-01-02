@@ -40,6 +40,7 @@ builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
 	.AddScoped<StructuredCablingStudioParametersResultFilterAttribute>()
 	.AddScoped<ConfigurationCalculateParametersResultFilterAttribute>()
 	.AddScoped<CalculateDTOResultFilterAttribute>()
+	.AddScoped<PutRecommendationsAvailabilityActionFilterAttribute>()
 	.AddDbContext<ApplicationContext>((sp, opt) =>
 	{
 		opt.UseSqlServer(builder.Configuration.GetConnectionString("StructuredCablingStudioDatabase"))

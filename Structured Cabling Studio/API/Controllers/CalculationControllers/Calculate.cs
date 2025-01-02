@@ -53,9 +53,14 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPut]
+		[PutRecommendationsAvailabilityActionFilter]
+		[ServiceFilter(typeof(DiapasonActionFilterAttribute))]
+		[ServiceFilter(typeof(StructuredCablingStudioParametersResultFilterAttribute))]
+		[ConfigurationCalculateParametersResultFilter]
+		[CalculateDTOResultFilter]
 		public IActionResult PutRecommendationsAvailability(CalculateViewModel calculateVM)
 		{
-			throw new NotImplementedException();
+			return PartialView("_CalculateFormPartial", calculateVM);
 		}
 
 		/// <summary>
