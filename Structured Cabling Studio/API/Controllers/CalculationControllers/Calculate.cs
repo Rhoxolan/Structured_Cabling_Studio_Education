@@ -70,7 +70,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPost]
-		[SetCableHankMeterageAvailabilityActionFilter]
+		[ServiceFilter(typeof(SetCableHankMeterageAvailabilityActionFilterAttribute))]
 		[ServiceFilter(typeof(SetCalculationParametersActionFilterAttribute), Order = int.MaxValue)]
 		[DiapasonActionFilter]
 		[StructuredCablingStudioParametersResultFilter]

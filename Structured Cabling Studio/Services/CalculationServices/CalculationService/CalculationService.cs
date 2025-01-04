@@ -19,6 +19,22 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			return await SetStructuredCablingStudioDiapasonsAsync_internal(structuredCablingStudioParameters);
 		}
 
+		public async Task<int> GetCeiledAveragePermanentLink(double minPermanentLink, double maxPermanentLink, double technologicalReserve)
+		{
+			var ceiledAveragePermanentLinkParameter = new SqlParameter("CeiledAveragePermanentLink", SqlDbType.Int)
+			{
+				Direction = ParameterDirection.Output,
+			};
+
+			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.CalculateCeiledAveragePermanentLink
+																	@MinPermanentLink = {minPermanentLink},
+																	@MaxPermanentLink = {maxPermanentLink},
+																	@TechnologicalReserve = {technologicalReserve},
+																	@CeiledAveragePermanentLink = {ceiledAveragePermanentLinkParameter} OUTPUT");
+
+			return (int)ceiledAveragePermanentLinkParameter.Value;
+		}
+
 		public async Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync()
 		{
 			StructuredCablingStudioParameters structuredCablingStudioParameters = GetStructuredCablingStudioParametersDefaultValue();

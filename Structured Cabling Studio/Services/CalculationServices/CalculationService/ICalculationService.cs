@@ -13,5 +13,7 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 
 		Task<StructuredCablingStudioDiapasons> SetStructuredCablingStudioDiapasonsAsync(
 			StructuredCablingStudioParameters structuredCablingStudioParameters);
+
+		Task<int> GetCeiledAveragePermanentLink(double minPermanentLink, double maxPermanentLink, double technologicalReserve);
 	}
 }
