@@ -39,8 +39,9 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPost]
 		[SetStrictComplianceWithTheStandartActionFilter]
-		[ServiceFilter(typeof(DiapasonActionFilterAttribute))]
-		[ServiceFilter(typeof(StructuredCablingStudioParametersResultFilterAttribute))]
+		[ServiceFilter(typeof(SetCalculationParametersActionFilterAttribute), Order = int.MaxValue)]
+		[DiapasonActionFilter]
+		[StructuredCablingStudioParametersResultFilter]
 		[ConfigurationCalculateParametersResultFilter]
 		[CalculateDTOResultFilter]
 		public IActionResult SetStrictComplianceWithTheStandart(CalculateViewModel calculateVM)
@@ -54,8 +55,9 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPost]
 		[SetRecommendationsAvailabilityActionFilter]
-		[ServiceFilter(typeof(DiapasonActionFilterAttribute))]
-		[ServiceFilter(typeof(StructuredCablingStudioParametersResultFilterAttribute))]
+		[ServiceFilter(typeof(SetCalculationParametersActionFilterAttribute), Order = int.MaxValue)]
+		[DiapasonActionFilter]
+		[StructuredCablingStudioParametersResultFilter]
 		[ConfigurationCalculateParametersResultFilter]
 		[CalculateDTOResultFilter]
 		public IActionResult SetRecommendationsAvailability(CalculateViewModel calculateVM)
