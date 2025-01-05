@@ -101,9 +101,15 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPost]
-		public IActionResult SetTechnologicalReserveAvailability(/*CalculateViewModel calculateVM*/)
+		[SetTechnologicalReserveAvailabilityActionFilter]
+		[ServiceFilter(typeof(SetCalculationParametersActionFilterAttribute), Order = int.MaxValue)]
+		[DiapasonActionFilter]
+		[StructuredCablingStudioParametersResultFilter]
+		[ConfigurationCalculateParametersResultFilter]
+		[CalculateDTOResultFilter]
+		public IActionResult SetTechnologicalReserveAvailability(CalculateViewModel calculateVM)
 		{
-			throw new NotImplementedException();
+			return PartialView("_CalculateFormPartial", calculateVM);
 		}
 
 		/// <summary>
@@ -111,9 +117,15 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPost]
-		public IActionResult RestoreDefaultsCalculateForm(/*CalculateViewModel calculateVM*/)
+		[ServiceFilter(typeof(RestoreDefaultsCalculateFormActionFilterAttribute))]
+		[ServiceFilter(typeof(SetCalculationParametersActionFilterAttribute), Order = int.MaxValue)]
+		[DiapasonActionFilter]
+		[StructuredCablingStudioParametersResultFilter]
+		[ConfigurationCalculateParametersResultFilter]
+		[CalculateDTOResultFilter]
+		public IActionResult RestoreDefaultsCalculateForm(CalculateViewModel calculateVM)
 		{
-			throw new NotImplementedException();
+			return PartialView("_CalculateFormPartial", calculateVM);
 		}
 
 		/// <summary>

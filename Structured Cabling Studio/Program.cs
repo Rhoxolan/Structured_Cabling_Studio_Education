@@ -43,6 +43,8 @@ builder.Services.AddScoped<ConfigureSessionContextInterceptor>()
 	.AddScoped<SetRecommendationsAvailabilityActionFilterAttribute>()
 	.AddScoped<SetCalculationParametersActionFilterAttribute>()
 	.AddScoped<SetCableHankMeterageAvailabilityActionFilterAttribute>()
+	.AddScoped<SetTechnologicalReserveAvailabilityActionFilterAttribute>()
+	.AddScoped<RestoreDefaultsCalculateFormActionFilterAttribute>()
 	.AddDbContext<ApplicationContext>((sp, opt) =>
 	{
 		opt.UseSqlServer(builder.Configuration.GetConnectionString("StructuredCablingStudioDatabase"))
