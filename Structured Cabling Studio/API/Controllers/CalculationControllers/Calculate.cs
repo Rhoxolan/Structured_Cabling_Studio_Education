@@ -86,9 +86,14 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		/// </summary>
 		/// <returns>The partial view with the Calculate form</returns>
 		[HttpPost]
-		public IActionResult SetAnArbitraryNumberOfPorts(/*CalculateViewModel calculateVM*/)
+		[ServiceFilter(typeof(SetCalculationParametersActionFilterAttribute), Order = int.MaxValue)]
+		[DiapasonActionFilter]
+		[StructuredCablingStudioParametersResultFilter]
+		[ConfigurationCalculateParametersResultFilter]
+		[CalculateDTOResultFilter]
+		public IActionResult SetAnArbitraryNumberOfPorts(CalculateViewModel calculateVM)
 		{
-			throw new NotImplementedException();
+			return PartialView("_CalculateFormPartial", calculateVM);
 		}
 
 		/// <summary>
