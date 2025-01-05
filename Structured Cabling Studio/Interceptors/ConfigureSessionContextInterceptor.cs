@@ -16,7 +16,7 @@ namespace StructuredCablingStudio.Interceptors
 			using var command = connection.CreateCommand();
 
 			command.CommandType = CommandType.StoredProcedure;
-			command.CommandText = "Calculation.SetAuthorizationSessionContext";
+			command.CommandText = "SetAuthorizationSessionContext";
 			command.Parameters.Add(new SqlParameter("@UserId", userId?.Value));
 
 			await command.ExecuteNonQueryAsync(cancellationToken);
