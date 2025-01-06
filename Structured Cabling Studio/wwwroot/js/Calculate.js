@@ -166,7 +166,7 @@ async function editCalculateForm(path) {
 async function calculate() {
     document.getElementById('calculateFormDiv').classList.add('formLoading');
     try {
-        let resp = await fetch("api/Calculate/Calculate", {
+        let resp = await fetch("api/Calculate/CalculateStructuredCablingConfiguration", {
             method: "POST",
             body: new FormData(document.forms.calculateForm)
         });

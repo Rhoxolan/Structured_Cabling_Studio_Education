@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using StructuredCablingStudio.ViewModels.CalculationViewModels;
 using StructuredCablingStudio.DTOs.CalculationDTOs;
 using StructuredCablingStudio.Models.CalculationModels;
+using StructuredCablingStudio.Extensions.StructuredCablingStudioParametersExtensions;
 
 namespace StructuredCablingStudio.Filters.CalculationFilters
 {
@@ -20,30 +21,7 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 			var calculateParameters = (ConfigurationCalculateParameters)context.ActionArguments[_calculateParametersActionArgumentsKey]!;
 			var calculateDTO = (CalculateDTO)context.ActionArguments[_calculateDTOActionArgumentsKey]!;
 
-			var viewModel = new CalculateViewModel
-			{
-				IsStrictComplianceWithTheStandart = cablingParameters.IsStrictComplianceWithTheStandart.GetValueOrDefault(),
-				IsRecommendationsAvailability = cablingParameters.IsRecommendationsAvailability.GetValueOrDefault(),
-				IsTechnologicalReserveAvailability = cablingParameters.IsTechnologicalReserveAvailability.GetValueOrDefault(),
-				IsAnArbitraryNumberOfPorts = cablingParameters.IsAnArbitraryNumberOfPorts.GetValueOrDefault(),
-				TechnologicalReserve = cablingParameters.TechnologicalReserve,
-				IsCableHankMeterageAvailability = calculateParameters.IsCableHankMeterageAvailability.GetValueOrDefault(),
-				CableHankMeterage = calculateParameters.CableHankMeterage,
-				MinPermanentLink = calculateDTO.MinPermanentLink,
-				MaxPermanentLink = calculateDTO.MaxPermanentLink,
-				NumberOfPorts = calculateDTO.NumberOfPorts,
-				NumberOfWorkplaces = calculateDTO.NumberOfWorkplaces,
-				IsCableRouteRunOutdoors = cablingParameters.RecommendationsArguments.IsolationType == IsolationType.Outdoor,
-				IsConsiderFireSafetyRequirements = cablingParameters.RecommendationsArguments.IsolationMaterial == IsolationMaterial.LSZH,
-				IsCableShieldingNecessity = cablingParameters.RecommendationsArguments.ShieldedType == ShieldedType.FTP,
-				HasTenBase_T = cablingParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.TenBASE_T),
-				HasFastEthernet = cablingParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.FastEthernet),
-				HasGigabitBASE_T = cablingParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.GigabitBASE_T),
-				HasGigabitBASE_TX = cablingParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.GigabitBASE_TX),
-				HasTwoPointFiveGBASE_T = cablingParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.TwoPointFiveGBASE_T),
-				HasFiveGBASE_T = cablingParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.FiveGBASE_T),
-				HasTenGE = cablingParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.TenGE)
-			};
+			var viewModel = new CalculateViewModel().FromCablingConfigurationParameters(cablingParameters, calculateParameters, calculateDTO);
 
 			var controller = (Controller)context.Controller;
 			controller.ViewData.Model = viewModel;

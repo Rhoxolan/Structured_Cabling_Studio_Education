@@ -77,5 +77,35 @@ namespace StructuredCablingStudio.Extensions.StructuredCablingStudioParametersEx
 				NumberOfWorkplaces = model.NumberOfWorkplaces
 			};
 		}
+
+		public static CalculateViewModel FromCablingConfigurationParameters(this CalculateViewModel model,
+			StructuredCablingStudioParameters structuredCablingStudioParameters, ConfigurationCalculateParameters configurationCalculateParameters,
+			CalculateDTO calculateDTO)
+		{
+			return new CalculateViewModel
+			{
+				IsStrictComplianceWithTheStandart = structuredCablingStudioParameters.IsStrictComplianceWithTheStandart.GetValueOrDefault(),
+				IsRecommendationsAvailability = structuredCablingStudioParameters.IsRecommendationsAvailability.GetValueOrDefault(),
+				IsTechnologicalReserveAvailability = structuredCablingStudioParameters.IsTechnologicalReserveAvailability.GetValueOrDefault(),
+				IsAnArbitraryNumberOfPorts = structuredCablingStudioParameters.IsAnArbitraryNumberOfPorts.GetValueOrDefault(),
+				TechnologicalReserve = structuredCablingStudioParameters.TechnologicalReserve,
+				IsCableHankMeterageAvailability = configurationCalculateParameters.IsCableHankMeterageAvailability.GetValueOrDefault(),
+				CableHankMeterage = configurationCalculateParameters.CableHankMeterage,
+				MinPermanentLink = calculateDTO.MinPermanentLink,
+				MaxPermanentLink = calculateDTO.MaxPermanentLink,
+				NumberOfPorts = calculateDTO.NumberOfPorts,
+				NumberOfWorkplaces = calculateDTO.NumberOfWorkplaces,
+				IsCableRouteRunOutdoors = structuredCablingStudioParameters.RecommendationsArguments.IsolationType == IsolationType.Outdoor,
+				IsConsiderFireSafetyRequirements = structuredCablingStudioParameters.RecommendationsArguments.IsolationMaterial == IsolationMaterial.LSZH,
+				IsCableShieldingNecessity = structuredCablingStudioParameters.RecommendationsArguments.ShieldedType == ShieldedType.FTP,
+				HasTenBase_T = structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.TenBASE_T),
+				HasFastEthernet = structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.FastEthernet),
+				HasGigabitBASE_T = structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.GigabitBASE_T),
+				HasGigabitBASE_TX = structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.GigabitBASE_TX),
+				HasTwoPointFiveGBASE_T = structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.TwoPointFiveGBASE_T),
+				HasFiveGBASE_T = structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.FiveGBASE_T),
+				HasTenGE = structuredCablingStudioParameters.RecommendationsArguments.ConnectionInterfaces.Contains(ConnectionInterfaceStandard.TenGE)
+			};
+		}
 	}
 }

@@ -13,6 +13,45 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 {
 	public class CalculationService(ApplicationContext context) : ICalculationService
 	{
+		public async Task<CablingConfiguration> CablingConfiguration(StructuredCablingStudioParameters structuredCablingStudioParameters,
+			ConfigurationCalculateParameters configurationCalculateParameters, DateTime recordTime, double minPermanentLink,
+			double maxPermanentLink, int numberOfWorkplaces, int numberOfPorts)
+		{
+			XmlDocument structuredCablingStudioParametersXMLDocument = SerializeToXML(structuredCablingStudioParameters);
+			XmlDocument configurationCalculateParametersXMLDocument = SerializeToXML(configurationCalculateParameters);
+
+			var structuredCablingStudioParametersParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
+			{
+				SqlValue = structuredCablingStudioParametersXMLDocument.OuterXml,
+			};
+
+			var configurationCalculateParametersParameter = new SqlParameter("ConfigurationCalculateParameters", SqlDbType.Xml)
+			{
+				SqlValue = configurationCalculateParametersXMLDocument.OuterXml,
+			};
+
+			var cablingConfigurationParameter = new SqlParameter("CablingConfiguration", SqlDbType.Xml)
+			{
+				Direction = ParameterDirection.Output
+			};
+
+			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.CalculateStructuredCablingConfiguration
+																	@ConfigurationCalculateParameters = {configurationCalculateParametersParameter},
+																	@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
+																	@RecordTime = {recordTime},
+																	@MinPermanentLink = {minPermanentLink},
+																	@MaxPermanentLink = {maxPermanentLink},
+																	@NumberOfWorkplaces = {numberOfWorkplaces},
+																	@NumberOfPorts = {numberOfPorts},
+																	@CablingConfiguration = {cablingConfigurationParameter} OUTPUT");
+
+			var cablingConfigurationXMLDocument = new XmlDocument();
+			cablingConfigurationXMLDocument.LoadXml(cablingConfigurationParameter.Value.ToString()!);
+			var cablingConfiguration = DeserializeFromXML<CablingConfiguration>(cablingConfigurationXMLDocument)!;
+
+			return cablingConfiguration;
+		}
+
 		public async Task<StructuredCablingStudioDiapasons> SetStructuredCablingStudioDiapasonsAsync(
 			StructuredCablingStudioParameters structuredCablingStudioParameters)
 		{
