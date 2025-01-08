@@ -15,5 +15,9 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			StructuredCablingStudioParameters structuredCablingStudioParameters);
 
 		Task<int> GetCeiledAveragePermanentLink(double minPermanentLink, double maxPermanentLink, double technologicalReserve);
+		
+		Task<CablingConfiguration> Calculate(StructuredCablingStudioParameters structuredCablingStudioParameters,
+			ConfigurationCalculateParameters configurationCalculateParameters, DateTime recordTime, double minPermanentLink,
+			double maxPermanentLink, int numberOfWorkplaces, int numberOfPorts);
 	}
 }

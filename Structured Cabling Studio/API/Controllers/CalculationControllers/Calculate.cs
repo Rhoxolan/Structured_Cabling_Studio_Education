@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StructuredCablingStudio.DTOs.CalculationDTOs;
+using StructuredCablingStudio.Extensions.StructuredCablingStudioParametersExtensions;
 using StructuredCablingStudio.Filters.CalculationFilters;
 using StructuredCablingStudio.Models.CalculationModels;
+using StructuredCablingStudio.Services.CalculationServices.CalculationService;
 using StructuredCablingStudio.ViewModels.CalculationViewModels;
 
 namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 {
 	[Route("api/{controller}/{action}/{id?}")]
-	public class Calculate : Controller
+	public class Calculate(ICalculationService calculationService) : Controller
 	{
 		/// <summary>
 		/// Returns the partial view with the clean Calculate form
@@ -136,7 +138,16 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> CalculateStructuredCablingConfiguration(CalculateViewModel calculateVM)
 		{
-			throw new NotImplementedException();
+			StructuredCablingStudioParameters structuredCablingStudioParameters = calculateVM.ToStructuredCablingStudioParameters();
+			structuredCablingStudioParameters.Diapasons =
+				await calculationService.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
+			ConfigurationCalculateParameters configurationCalculateParameters = calculateVM.ToConfigurationCalculateParameters();
+			var recordTime = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(calculateVM.RecordTime)).DateTime.ToLocalTime();
+
+			CablingConfiguration configuration = await calculationService.Calculate(structuredCablingStudioParameters, configurationCalculateParameters,
+				recordTime, calculateVM.MaxPermanentLink, calculateVM.MaxPermanentLink, calculateVM.NumberOfWorkplaces, calculateVM.NumberOfPorts);
+
+			return PartialView("_ConfigurationDisplayCalculatePartial", configuration);
 		}
 
 		[HttpPost]

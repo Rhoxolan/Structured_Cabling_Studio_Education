@@ -13,7 +13,7 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 {
 	public class CalculationService(ApplicationContext context) : ICalculationService
 	{
-		public async Task<CablingConfiguration> CablingConfiguration(StructuredCablingStudioParameters structuredCablingStudioParameters,
+		public async Task<CablingConfiguration> Calculate(StructuredCablingStudioParameters structuredCablingStudioParameters,
 			ConfigurationCalculateParameters configurationCalculateParameters, DateTime recordTime, double minPermanentLink,
 			double maxPermanentLink, int numberOfWorkplaces, int numberOfPorts)
 		{
