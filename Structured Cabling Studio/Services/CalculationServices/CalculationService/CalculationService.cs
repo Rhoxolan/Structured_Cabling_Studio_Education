@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using StructuredCablingStudio.Contexts;
 using StructuredCablingStudio.DTOs.CalculationDTOs;
+using StructuredCablingStudio.Extensions.CablingConfigurationDTOExtensions;
 using StructuredCablingStudio.Models.CalculationModels;
 using System.Data;
 using System.Globalization;
@@ -46,9 +47,9 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 
 			var cablingConfigurationXMLDocument = new XmlDocument();
 			cablingConfigurationXMLDocument.LoadXml(cablingConfigurationParameter.Value.ToString()!);
-			var cablingConfiguration = DeserializeFromXML<CablingConfiguration>(cablingConfigurationXMLDocument)!;
+			var cablingConfigurationDTO = DeserializeFromXML<CablingConfigurationDTO>(cablingConfigurationXMLDocument)!;
 
-			return cablingConfiguration;
+			return cablingConfigurationDTO.ToCablingConfiguration();
 		}
 
 		public async Task<StructuredCablingStudioDiapasons> SetStructuredCablingStudioDiapasonsAsync(

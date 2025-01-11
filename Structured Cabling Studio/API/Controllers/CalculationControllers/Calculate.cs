@@ -147,7 +147,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 			var recordTime = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(calculateVM.RecordTime)).DateTime.ToLocalTime();
 
 			CablingConfiguration configuration = await calculationService.Calculate(structuredCablingStudioParameters, configurationCalculateParameters,
-				recordTime, calculateVM.MaxPermanentLink, calculateVM.MaxPermanentLink, calculateVM.NumberOfWorkplaces, calculateVM.NumberOfPorts);
+				recordTime, calculateVM.MinPermanentLink, calculateVM.MaxPermanentLink, calculateVM.NumberOfWorkplaces, calculateVM.NumberOfPorts);
 
 			return PartialView("_ConfigurationDisplayCalculatePartial", configuration);
 		}
