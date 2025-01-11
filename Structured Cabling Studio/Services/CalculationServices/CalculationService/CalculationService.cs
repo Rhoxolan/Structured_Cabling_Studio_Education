@@ -24,12 +24,10 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			{
 				SqlValue = structuredCablingStudioParametersXMLDocument.OuterXml,
 			};
-
 			var configurationCalculateParametersParameter = new SqlParameter("ConfigurationCalculateParameters", SqlDbType.Xml)
 			{
 				SqlValue = configurationCalculateParametersXMLDocument.OuterXml,
 			};
-
 			var cablingConfigurationParameter = new SqlParameter("CablingConfiguration", SqlDbType.Xml)
 			{
 				Direction = ParameterDirection.Output
@@ -56,7 +54,27 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 		public async Task<StructuredCablingStudioDiapasons> SetStructuredCablingStudioDiapasonsAsync(
 			StructuredCablingStudioParameters structuredCablingStudioParameters)
 		{
-			return await SetStructuredCablingStudioDiapasonsAsync_internal(structuredCablingStudioParameters);
+			XmlDocument structuredCablingStudioParametersXMLDocument = SerializeToXML(structuredCablingStudioParameters);
+
+			var structuredCablingStudioParametersParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
+			{
+				SqlValue = structuredCablingStudioParametersXMLDocument.OuterXml,
+			};
+			var structuredCablingStudioDiapasonsParameter = new SqlParameter("StructuredCablingStudioDiapasons", SqlDbType.Xml)
+			{
+				Direction = ParameterDirection.Output
+			};
+
+			await context.Database.ExecuteSqlAsync($@"
+						EXEC Calculation.SetStructuredCablingStudioParametersDiapasons
+								@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
+								@StructuredCablingStudioDiapasons = {structuredCablingStudioDiapasonsParameter} OUTPUT");
+
+			var structuredCablingStudioDiapasonsXMLDocument = new XmlDocument();
+			structuredCablingStudioDiapasonsXMLDocument.LoadXml(structuredCablingStudioDiapasonsParameter.Value.ToString()!);
+			var structuredCablingStudioDiapasons = DeserializeFromXML<StructuredCablingStudioDiapasons>(structuredCablingStudioDiapasonsXMLDocument)!;
+
+			return structuredCablingStudioDiapasons;
 		}
 
 		public async Task<int> GetCeiledAveragePermanentLink(double minPermanentLink, double maxPermanentLink, double technologicalReserve)
@@ -76,12 +94,9 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 			return (int)ceiledAveragePermanentLinkParameter.Value;
 		}
 
-		public async Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync()
+		public StructuredCablingStudioParameters GetStructuredCablingStudioParametersDefault()
 		{
-			StructuredCablingStudioParameters structuredCablingStudioParameters = GetStructuredCablingStudioParametersDefaultValue();
-			structuredCablingStudioParameters.Diapasons = await SetStructuredCablingStudioDiapasonsAsync_internal(structuredCablingStudioParameters);
-
-			return structuredCablingStudioParameters;
+			return GetStructuredCablingStudioParametersDefaultValue();
 		}
 
 		public ConfigurationCalculateParameters GetConfigurationCalculateParametersDefault()
@@ -92,33 +107,6 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 		public CalculateDTO GetCalculateDTODefault()
 		{
 			return GetCalculateDTODefaultValue();
-		}
-
-		private async Task<StructuredCablingStudioDiapasons> SetStructuredCablingStudioDiapasonsAsync_internal(
-			StructuredCablingStudioParameters structuredCablingStudioParameters)
-		{
-			XmlDocument structuredCablingStudioParametersXMLDocument = SerializeToXML(structuredCablingStudioParameters);
-
-			var structuredCablingStudioParametersParameter = new SqlParameter("StructuredCablingStudioParameters", SqlDbType.Xml)
-			{
-				SqlValue = structuredCablingStudioParametersXMLDocument.OuterXml,
-			};
-
-			var structuredCablingStudioDiapasonsParameter = new SqlParameter("StructuredCablingStudioDiapasons", SqlDbType.Xml)
-			{
-				Direction = ParameterDirection.Output
-			};
-
-			await context.Database.ExecuteSqlAsync($@"
-						EXEC Calculation.SetStructuredCablingStudioParametersDiapasons
-								@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
-								@StructuredCablingStudioDiapasons = {structuredCablingStudioDiapasonsParameter} OUTPUT");
-
-			var structuredCablingStudioDiapasonsXMLDocument = new XmlDocument();
-			structuredCablingStudioDiapasonsXMLDocument.LoadXml(structuredCablingStudioDiapasonsParameter.Value.ToString()!);
-			var structuredCablingStudioDiapasons = DeserializeFromXML<StructuredCablingStudioDiapasons>(structuredCablingStudioDiapasonsXMLDocument)!;
-
-			return structuredCablingStudioDiapasons;
 		}
 
 		private static StructuredCablingStudioParameters GetStructuredCablingStudioParametersDefaultValue()

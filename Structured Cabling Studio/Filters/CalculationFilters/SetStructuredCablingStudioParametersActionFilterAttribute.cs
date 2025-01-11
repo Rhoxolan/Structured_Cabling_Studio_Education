@@ -12,7 +12,8 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 		{
 			if (context.ActionArguments[_actionArgumentsKey] == null)
 			{
-				var parameters = await calculationService.GetStructuredCablingStudioParametersDefaultAsync();
+				var parameters = calculationService.GetStructuredCablingStudioParametersDefault();
+				parameters.Diapasons = await calculationService.SetStructuredCablingStudioDiapasonsAsync(parameters);
 				context.HttpContext.Session?.SetStructuredCablingStudioParameters(parameters);
 				context.ActionArguments[_actionArgumentsKey] = parameters;
 			}

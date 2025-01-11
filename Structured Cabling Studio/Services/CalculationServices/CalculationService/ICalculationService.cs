@@ -7,7 +7,7 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
     {
         ConfigurationCalculateParameters GetConfigurationCalculateParametersDefault();
 
-		Task<StructuredCablingStudioParameters> GetStructuredCablingStudioParametersDefaultAsync();
+		StructuredCablingStudioParameters GetStructuredCablingStudioParametersDefault();
 
 		CalculateDTO GetCalculateDTODefault();
 

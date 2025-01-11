@@ -141,7 +141,7 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 			StructuredCablingStudioParameters structuredCablingStudioParameters = calculateVM.ToStructuredCablingStudioParameters();
 			structuredCablingStudioParameters.Diapasons = await calculationService
 				.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
-			
+
 			ConfigurationCalculateParameters configurationCalculateParameters = calculateVM.ToConfigurationCalculateParameters();
 
 			var recordTime = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(calculateVM.RecordTime)).DateTime.ToLocalTime();
