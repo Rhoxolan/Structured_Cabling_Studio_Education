@@ -18,8 +18,9 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 			if (configurationCalculateParameters.CableHankMeterage is null
 				&& Equals(configurationCalculateParameters.IsCableHankMeterageAvailability, true))
 			{
-				configurationCalculateParameters.CableHankMeterage
-					= calculationService.GetConfigurationCalculateParametersDefault().CableHankMeterage;
+				configurationCalculateParameters.CableHankMeterage = calculationService
+					.GetConfigurationCalculateParametersDefault()
+					.CableHankMeterage;
 			}
 
 			if (model.CableHankMeterage != configurationCalculateParameters.CableHankMeterage)

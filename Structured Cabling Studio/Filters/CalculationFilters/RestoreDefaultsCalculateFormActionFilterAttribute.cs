@@ -13,8 +13,8 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 
 		public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
 		{
-			StructuredCablingStudioParameters structuredCablingStudioParameters
-				= await calculationService.GetStructuredCablingStudioParametersDefaultAsync();
+			StructuredCablingStudioParameters structuredCablingStudioParameters = await calculationService
+				.GetStructuredCablingStudioParametersDefaultAsync();
 			ConfigurationCalculateParameters configurationCalculateParameters = calculationService.GetConfigurationCalculateParametersDefault();
 			CalculateDTO calculateDTO = calculationService.GetCalculateDTODefault();
 			

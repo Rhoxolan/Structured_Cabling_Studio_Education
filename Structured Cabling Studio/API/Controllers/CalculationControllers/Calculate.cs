@@ -139,9 +139,11 @@ namespace StructuredCablingStudio.API.Controllers.CalculationControllers
 		public async Task<IActionResult> CalculateStructuredCablingConfiguration(CalculateViewModel calculateVM)
 		{
 			StructuredCablingStudioParameters structuredCablingStudioParameters = calculateVM.ToStructuredCablingStudioParameters();
-			structuredCablingStudioParameters.Diapasons =
-				await calculationService.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
+			structuredCablingStudioParameters.Diapasons = await calculationService
+				.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
+			
 			ConfigurationCalculateParameters configurationCalculateParameters = calculateVM.ToConfigurationCalculateParameters();
+
 			var recordTime = DateTimeOffset.FromUnixTimeMilliseconds(Convert.ToInt64(calculateVM.RecordTime)).DateTime.ToLocalTime();
 
 			CablingConfiguration configuration = await calculationService.Calculate(structuredCablingStudioParameters, configurationCalculateParameters,

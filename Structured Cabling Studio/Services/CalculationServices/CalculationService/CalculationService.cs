@@ -14,8 +14,8 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 	public class CalculationService(ApplicationContext context) : ICalculationService
 	{
 		public async Task<CablingConfiguration> Calculate(StructuredCablingStudioParameters structuredCablingStudioParameters,
-			ConfigurationCalculateParameters configurationCalculateParameters, DateTime recordTime, double minPermanentLink,
-			double maxPermanentLink, int numberOfWorkplaces, int numberOfPorts)
+			ConfigurationCalculateParameters configurationCalculateParameters, DateTime recordTime, double minPermanentLink, double maxPermanentLink,
+			int numberOfWorkplaces, int numberOfPorts)
 		{
 			XmlDocument structuredCablingStudioParametersXMLDocument = SerializeToXML(structuredCablingStudioParameters);
 			XmlDocument configurationCalculateParametersXMLDocument = SerializeToXML(configurationCalculateParameters);
@@ -35,15 +35,16 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 				Direction = ParameterDirection.Output
 			};
 
-			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.CalculateStructuredCablingConfiguration
-																	@ConfigurationCalculateParameters = {configurationCalculateParametersParameter},
-																	@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
-																	@RecordTime = {recordTime},
-																	@MinPermanentLink = {minPermanentLink},
-																	@MaxPermanentLink = {maxPermanentLink},
-																	@NumberOfWorkplaces = {numberOfWorkplaces},
-																	@NumberOfPorts = {numberOfPorts},
-																	@CablingConfiguration = {cablingConfigurationParameter} OUTPUT");
+			await context.Database.ExecuteSqlAsync($@"
+						EXEC Calculation.CalculateStructuredCablingConfiguration
+								@ConfigurationCalculateParameters = {configurationCalculateParametersParameter},
+								@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
+								@RecordTime = {recordTime},
+								@MinPermanentLink = {minPermanentLink},
+								@MaxPermanentLink = {maxPermanentLink},
+								@NumberOfWorkplaces = {numberOfWorkplaces},
+								@NumberOfPorts = {numberOfPorts},
+								@CablingConfiguration = {cablingConfigurationParameter} OUTPUT");
 
 			var cablingConfigurationXMLDocument = new XmlDocument();
 			cablingConfigurationXMLDocument.LoadXml(cablingConfigurationParameter.Value.ToString()!);
@@ -65,11 +66,12 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 				Direction = ParameterDirection.Output,
 			};
 
-			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.CalculateCeiledAveragePermanentLink
-																	@MinPermanentLink = {minPermanentLink},
-																	@MaxPermanentLink = {maxPermanentLink},
-																	@TechnologicalReserve = {technologicalReserve},
-																	@CeiledAveragePermanentLink = {ceiledAveragePermanentLinkParameter} OUTPUT");
+			await context.Database.ExecuteSqlAsync($@"
+						EXEC Calculation.CalculateCeiledAveragePermanentLink
+								@MinPermanentLink = {minPermanentLink},
+								@MaxPermanentLink = {maxPermanentLink},
+								@TechnologicalReserve = {technologicalReserve},
+								@CeiledAveragePermanentLink = {ceiledAveragePermanentLinkParameter} OUTPUT");
 
 			return (int)ceiledAveragePermanentLinkParameter.Value;
 		}
@@ -107,9 +109,10 @@ namespace StructuredCablingStudio.Services.CalculationServices.CalculationServic
 				Direction = ParameterDirection.Output
 			};
 
-			await context.Database.ExecuteSqlAsync($@"EXEC Calculation.SetStructuredCablingStudioParametersDiapasons
-																	@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
-																	@StructuredCablingStudioDiapasons = {structuredCablingStudioDiapasonsParameter} OUTPUT");
+			await context.Database.ExecuteSqlAsync($@"
+						EXEC Calculation.SetStructuredCablingStudioParametersDiapasons
+								@StructuredCablingStudioParameters = {structuredCablingStudioParametersParameter},
+								@StructuredCablingStudioDiapasons = {structuredCablingStudioDiapasonsParameter} OUTPUT");
 
 			var structuredCablingStudioDiapasonsXMLDocument = new XmlDocument();
 			structuredCablingStudioDiapasonsXMLDocument.LoadXml(structuredCablingStudioDiapasonsParameter.Value.ToString()!);

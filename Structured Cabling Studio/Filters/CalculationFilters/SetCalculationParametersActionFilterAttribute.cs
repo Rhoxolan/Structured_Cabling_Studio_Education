@@ -22,8 +22,8 @@ namespace StructuredCablingStudio.Filters.CalculationFilters
 			var model = (CalculateViewModel)controller.ViewData.Model!;
 
 			StructuredCablingStudioParameters structuredCablingStudioParameters = model.ToStructuredCablingStudioParameters();
-			structuredCablingStudioParameters.Diapasons
-				= await calculationService.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
+			structuredCablingStudioParameters.Diapasons = await calculationService
+				.SetStructuredCablingStudioDiapasonsAsync(structuredCablingStudioParameters);
 
 			ConfigurationCalculateParameters configurationCalculateParameters = model.ToConfigurationCalculateParameters();
 
