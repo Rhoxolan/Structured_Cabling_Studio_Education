@@ -50,42 +50,42 @@ document.addEventListener('focusout', e => {
 document.addEventListener('click', e => {
     if (e.target.id === "restoreDefaultsButton") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/RestoreDefaultsCalculateForm");
+        editCalculateForm("api/CalculationProcessing/RestoreDefaultsCalculateForm");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isStrictComplianceWithTheStandartCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/SetStrictComplianceWithTheStandart");
+        editCalculateForm("api/CalculationProcessing/SetStrictComplianceWithTheStandart");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isAnArbitraryNumberOfPortsCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/SetAnArbitraryNumberOfPorts");
+        editCalculateForm("api/CalculationProcessing/SetAnArbitraryNumberOfPorts");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isTechnologicalReserveAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/SetTechnologicalReserveAvailability");
+        editCalculateForm("api/CalculationProcessing/SetTechnologicalReserveAvailability");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isRecommendationsAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/SetRecommendationsAvailability");
+        editCalculateForm("api/CalculationProcessing/SetRecommendationsAvailability");
     }
 });
 
 document.addEventListener('click', e => {
     if (e.target.id === "isCableHankMeterageAvailabilityCheckBox") {
         removeDisabledAttributesFromAllInputs();
-        editCalculateForm("api/Calculate/SetCableHankMeterageAvailability");
+        editCalculateForm("api/CalculationProcessing/SetCableHankMeterageAvailability");
     }
 });
 
@@ -105,7 +105,7 @@ document.addEventListener('submit', e => {
 
 async function loadCalculateForm() {
     try {
-        let resp = await fetch("api/Calculate/GetCalculateForm", {
+        let resp = await fetch("api/CalculationProcessing/GetCalculateForm", {
             method: "GET"
         });
         if (resp.ok === true) {
@@ -124,7 +124,7 @@ async function loadCalculateForm() {
 
 async function loadConfigurationDisplay() {
     try {
-        let resp = await fetch("api/Calculate/GetConfigurationDisplayCalculate", {
+        let resp = await fetch("api/CalculationProcessing/GetConfigurationDisplayCalculate", {
             method: "GET"
         });
         if (resp.ok === true) {
@@ -166,7 +166,7 @@ async function editCalculateForm(path) {
 async function calculate() {
     document.getElementById('calculateFormDiv').classList.add('formLoading');
     try {
-        let resp = await fetch("api/Calculate/CalculateStructuredCablingConfiguration", {
+        let resp = await fetch("api/CalculationProcessing/Calculate", {
             method: "POST",
             body: new FormData(document.forms.calculateForm)
         });
