@@ -149,7 +149,14 @@ namespace StructuredCablingStudio.Controllers
             CablingConfiguration configuration = await calculationService.Calculate(structuredCablingStudioParameters, configurationCalculateParameters,
                 recordTime, calculateVM.MinPermanentLink, calculateVM.MaxPermanentLink, calculateVM.NumberOfWorkplaces, calculateVM.NumberOfPorts);
 
-            return PartialView("_ConfigurationDisplayCalculatePartial", configuration);
+			//var structuredCablingParameters = _mapper.Map<StructuredCablingParameters>(structuredCablingStudioParameters);
+			//HttpContext.Session.SetStructuredCablingParameters(structuredCablingParameters);
+			//var calculateParameters = _mapper.Map<CalculateParameters>(configurationCalculateParameters);
+			//HttpContext.Session.SetCalculateParameters(calculateParameters);
+			//var calculateDTO = _mapper.Map<CalculateDTO>(calculateVM);
+			//HttpContext.Session.SetCalculateDTO(calculateDTO);
+
+			return PartialView("_ConfigurationDisplayCalculatePartial", configuration);
         }
 
         [HttpPost]
